@@ -1,0 +1,1766 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102d4f">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20role%3D%22img%22%20aria-label%3D%22GSSPK%20school%20emblem%22%3E%0A%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23173f62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230a2038%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%0A%3Cpath%20d%3D%22M50%204%2088%2018v29c0%2023-15%2039-38%2049C27%2086%2012%2070%2012%2047V18L50%204Z%22%20fill%3D%22url%28%23g%29%22%20stroke%3D%22%23e9b84b%22%20stroke-width%3D%223%22%2F%3E%0A%3Cpath%20d%3D%22M23%2025h54v26c-8-4-17-4-27%202-10-6-19-6-27-2V25Z%22%20fill%3D%22%23fff%22%20opacity%3D%22.96%22%2F%3E%0A%3Cpath%20d%3D%22M50%2026v27M27%2031h18M55%2031h18%22%20stroke%3D%22%232f8066%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cpath%20d%3D%22M26%2057c9-5%2017-3%2024%202%207-5%2015-7%2024-2%22%20fill%3D%22none%22%20stroke%3D%22%23e9b84b%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ctext%20x%3D%2250%22%20y%3D%2276%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2215%22%20font-weight%3D%22900%22%20letter-spacing%3D%22-.8%22%20fill%3D%22%23fff%22%3EGSSPK%3C%2Ftext%3E%0A%3Ctext%20x%3D%2250%22%20y%3D%2287%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%226%22%20font-weight%3D%22700%22%20letter-spacing%3D%221.5%22%20fill%3D%22%23f3d78f%22%3E1942%3C%2Ftext%3E%0A%3C%2Fsvg%3E">
+  <meta property="og:title" content="Groupe Scolaire Saint Pierre Kinyambi">
+  <meta property="og:description" content="Nursery, primary and O-Level education in Kigarama, Kamonyi District, Rwanda.">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Discover Groupe Scolaire Saint Pierre Kinyambi: nursery, primary and O-Level education, school life, staff and learner registration information.">
+  <title>Groupe Scolaire Saint Pierre Kinyambi | Learning with Purpose</title>
+  <style>
+    /* ================================================================
+       GROUPE SCOLAIRE SAINT PIERRE KINYAMBI
+       Single-file website. Edit the SCHOOL_DATA and SCHOOL_STAFF values
+       near the end of this file to update school information and staff.
+
+       IMPORTANT BEFORE PUBLIC LAUNCH:
+       This first version is a front-end prototype. Admission requests are
+       saved in this browser only (localStorage), not sent to a school server.
+       The demo admin password is also client-side and is NOT secure.
+       Connect Firebase or another secure backend before collecting real
+       personal information about learners and parents.
+       ================================================================ */
+
+    :root {
+      --navy: #102d4f;
+      --navy-2: #183f66;
+      --blue: #2874a8;
+      --blue-soft: #e8f2f8;
+      --gold: #e9b84b;
+      --gold-soft: #fff5d9;
+      --green: #2f8066;
+      --ink: #183047;
+      --muted: #66798a;
+      --paper: #fbfaf7;
+      --white: #ffffff;
+      --line: #e4e9ed;
+      --shadow: 0 22px 65px rgba(17, 45, 73, .12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 94px; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body.menu-open { overflow: hidden; }
+    /* Scroll-linked game-like 3D learning landscape, kept behind page content. */
+    #journeyScene { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .34; mix-blend-mode: normal; }
+    .topline, .site-header, main, .footer { position: relative; z-index: 1; }
+    .section-soft { background: rgba(241,246,248,.88); }
+    .topline-location { color: rgba(255,255,255,.7); font-size: .72rem; }
+    .footer-credit { margin-top: 17px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.68); font-size: .76rem; line-height: 1.9; }
+    .footer-credit a { color: #f1cb71; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-credit a:hover { color: #fff; }
+    .school-address { font-style: normal; display: block; margin-top: 4px; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    img, svg { max-width: 100%; }
+    ::selection { color: var(--navy); background: #f7d982; }
+
+    .skip-link {
+      position: fixed; left: 12px; top: 10px; z-index: 9999;
+      padding: 10px 14px; background: white; border-radius: 10px;
+      transform: translateY(-150%); transition: transform .2s;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .container { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    .section { padding: 94px 0; position: relative; }
+    .section-soft { background: #f1f6f8; }
+    .section-kicker {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--green); font-size: .76rem; letter-spacing: .16em;
+      text-transform: uppercase; font-weight: 800; margin-bottom: 13px;
+    }
+    .section-kicker::before { content: ""; display: block; width: 28px; height: 2px; background: var(--gold); }
+    .section-heading { max-width: 700px; margin-bottom: 36px; }
+    .section-heading h2 { margin: 0 0 12px; color: var(--navy); font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -.045em; line-height: 1.1; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 1.04rem; }
+
+    /* Top navigation */
+    .topline { background: #0b233d; color: rgba(255,255,255,.82); font-size: .78rem; }
+    .topline-inner { min-height: 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .topline-left, .topline-right { display: flex; align-items: center; gap: 20px; }
+    .topline a:hover { color: var(--gold); }
+    .topline .tiny-icon { color: var(--gold); margin-right: 6px; }
+    .site-header {
+      position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,.93);
+      backdrop-filter: blur(18px); border-bottom: 1px solid rgba(16,45,79,.08);
+    }
+    .nav-wrap { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 230px; }
+    .brand-mark {
+      width: 47px; height: 47px; border-radius: 15px; display: grid; place-items: center;
+      background: linear-gradient(145deg, var(--navy), #235c83); color: white;
+      box-shadow: 0 8px 18px rgba(16,45,79,.19); position: relative; overflow: hidden;
+      font-family: Georgia, serif; font-size: 1.13rem; font-weight: 800; letter-spacing: -.08em; padding: 2px;
+    }
+    .brand-mark svg { display: block; width: 100%; height: 100%; }
+    .brand-mark::after { content: ""; position: absolute; width: 43px; height: 43px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; right: -21px; top: -19px; }
+    .brand-name { color: var(--navy); font-size: .82rem; font-weight: 900; line-height: 1.18; letter-spacing: .025em; }
+    .brand-sub { display: block; margin-top: 4px; color: #80909d; font-size: .65rem; letter-spacing: .12em; font-weight: 700; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(15px, 2.2vw, 28px); }
+    .nav-links a { color: #506477; font-size: .84rem; font-weight: 700; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn {
+      min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 1px solid transparent; border-radius: 999px; padding: 0 19px;
+      font-weight: 800; font-size: .84rem; transition: transform .22s, box-shadow .22s, background .22s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    button:disabled { opacity: .62; cursor: not-allowed; transform: none !important; }
+    .btn-primary { color: white; background: var(--navy); box-shadow: 0 9px 20px rgba(16,45,79,.18); }
+    .btn-primary:hover { background: #1b4b73; box-shadow: 0 13px 25px rgba(16,45,79,.22); }
+    .btn-gold { color: #3f3216; background: var(--gold); box-shadow: 0 9px 20px rgba(233,184,75,.2); }
+    .btn-gold:hover { background: #f1c966; }
+    .btn-outline { color: var(--navy); border-color: #cad6df; background: white; }
+    .btn-outline:hover { border-color: var(--blue); background: var(--blue-soft); }
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 13px; background: white; color: var(--navy); }
+
+    /* Hero / animated pseudo-3D landscape */
+    .hero {
+      min-height: 690px; display: flex; align-items: center; position: relative; isolation: isolate;
+      color: white; overflow: hidden; background: radial-gradient(ellipse at 72% 20%, rgba(46,101,135,.82) 0, transparent 36%), linear-gradient(116deg, rgba(13,41,72,.88) 0%, rgba(18,59,96,.78) 53%, rgba(28,90,114,.68) 100%);
+    }
+    #heroScene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .9; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(7,27,49,.9) 0%, rgba(8,34,58,.67) 48%, rgba(8,34,58,.14) 100%); }
+    .hero::after { content: ""; position: absolute; width: 600px; height: 600px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; right: -100px; top: -230px; box-shadow: 0 0 0 45px rgba(255,255,255,.025), 0 0 0 95px rgba(255,255,255,.02); pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; width: min(720px, 70%); padding: 92px 0 120px; }
+    .hero-pill { display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; color: #e8f2f8; background: rgba(255,255,255,.08); font-size: .76rem; font-weight: 750; letter-spacing: .06em; backdrop-filter: blur(8px); }
+    .hero-pill span { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 0 5px rgba(233,184,75,.15); }
+    .hero h1 { margin: 25px 0 18px; max-width: 800px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.85rem, 6.3vw, 5.65rem); font-weight: 600; letter-spacing: -.055em; line-height: .99; }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero-lead { max-width: 575px; margin: 0; color: rgba(255,255,255,.78); font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .hero-note { display: flex; align-items: center; gap: 13px; margin-top: 41px; color: rgba(255,255,255,.72); font-size: .78rem; }
+    .hero-note strong { color: white; }
+    .hero-note .rule { height: 1px; width: 45px; background: var(--gold); }
+    .hero-side-label { position: absolute; right: max(22px, calc((100vw - var(--max))/2)); bottom: 70px; z-index: 2; writing-mode: vertical-rl; color: rgba(255,255,255,.6); letter-spacing: .23em; text-transform: uppercase; font-size: .65rem; }
+    .hero-bottom { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; height: 78px; background: linear-gradient(180deg, transparent, rgba(4,20,36,.32)); }
+    .hero-orb { position: absolute; top: 18%; right: 15%; width: 190px; height: 190px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,225,151,.62), rgba(233,184,75,.1) 62%, transparent 70%); filter: blur(1px); animation: orbfloat 9s ease-in-out infinite; }
+    @keyframes orbfloat { 0%,100%{ transform: translate3d(0,0,0) scale(1); } 50%{ transform: translate3d(-15px,18px,0) scale(1.08); } }
+
+    /* Numbers ribbon */
+    .numbers-ribbon { position: relative; z-index: 5; margin-top: -42px; }
+    .numbers-panel { display: grid; grid-template-columns: repeat(4, 1fr); background: white; border-radius: 21px; box-shadow: var(--shadow); overflow: hidden; }
+    .number-item { min-height: 116px; padding: 23px 25px; display: flex; align-items: center; gap: 15px; border-right: 1px solid var(--line); }
+    .number-item:last-child { border-right: 0; }
+    .number-icon { flex: 0 0 43px; width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; color: var(--blue); background: var(--blue-soft); font-size: 1.2rem; }
+    .number-value { color: var(--navy); font-size: 1.75rem; font-weight: 900; line-height: 1.1; letter-spacing: -.045em; }
+    .number-label { margin-top: 5px; color: var(--muted); font-size: .76rem; font-weight: 650; }
+
+    /* Overview / value cards */
+    .intro-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 66px; align-items: center; }
+    .intro-copy h2 { margin: 0 0 20px; color: var(--navy); font-family: Georgia, serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.08; letter-spacing: -.04em; }
+    .intro-copy p { color: var(--muted); margin: 0 0 14px; }
+    .intro-signature { display: flex; align-items: center; gap: 13px; margin-top: 28px; }
+    .signature-line { width: 36px; height: 2px; background: var(--gold); }
+    .intro-signature strong { color: var(--navy); display: block; font-size: .91rem; }
+    .intro-signature small { color: var(--muted); font-size: .74rem; }
+    .values-stack { display: grid; gap: 14px; }
+    .value-card { position: relative; overflow: hidden; padding: 23px 25px; border: 1px solid #e8edf0; border-radius: var(--radius-lg); background: white; box-shadow: 0 12px 30px rgba(16,45,79,.045); transition: transform .25s, box-shadow .25s; }
+    .value-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .value-card::after { content: ""; position: absolute; width: 110px; height: 110px; border-radius: 50%; right: -42px; bottom: -55px; background: rgba(233,184,75,.1); }
+    .value-label { display: flex; align-items: center; gap: 9px; color: var(--green); font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 850; }
+    .value-card h3 { color: var(--navy); margin: 8px 0 5px; font-family: Georgia, serif; font-size: 1.28rem; }
+    .value-card p { color: var(--muted); margin: 0; font-size: .88rem; }
+    .draft-note { margin-top: 8px; color: #9a7630; font-size: .68rem; font-weight: 700; }
+
+    /* Level cards */
+    .levels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .level-card { position: relative; min-height: 310px; padding: 29px; border-radius: var(--radius-xl); overflow: hidden; background: white; border: 1px solid #e6edf0; box-shadow: 0 15px 45px rgba(16,45,79,.055); transition: transform .25s, box-shadow .25s; }
+    .level-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .level-card::before { content: ""; position: absolute; width: 180px; height: 180px; right: -65px; top: -78px; border-radius: 50%; background: var(--wash, #eaf3f8); }
+    .level-card.nursery { --wash: #fff1d1; }
+    .level-card.primary { --wash: #e0f1ec; }
+    .level-card.secondary { --wash: #e4eafa; }
+    .level-icon { width: 53px; height: 53px; display: grid; place-items: center; border-radius: 17px; background: var(--wash); color: var(--navy); font-size: 1.5rem; position: relative; }
+    .level-card h3 { color: var(--navy); margin: 24px 0 8px; font-family: Georgia, serif; font-size: 1.7rem; }
+    .level-card p { color: var(--muted); margin: 0; font-size: .9rem; max-width: 330px; }
+    .level-meta { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 24px; }
+    .meta-chip { display: inline-flex; padding: 7px 11px; border-radius: 999px; background: #f2f6f8; color: #536a7c; font-size: .72rem; font-weight: 800; }
+    .level-arrow { position: absolute; right: 27px; bottom: 25px; color: var(--blue); font-size: 1.35rem; }
+
+    /* School statistics */
+    .stats-layout { display: grid; grid-template-columns: .76fr 1.24fr; gap: 32px; align-items: stretch; }
+    .stats-feature { padding: 34px; border-radius: var(--radius-xl); color: white; background: linear-gradient(145deg, #102d4f, #1b5a74); position: relative; overflow: hidden; }
+    .stats-feature::before, .stats-feature::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.14); }
+    .stats-feature::before { width: 330px; height: 330px; right: -155px; top: -140px; box-shadow: 0 0 0 35px rgba(255,255,255,.025), 0 0 0 75px rgba(255,255,255,.02); }
+    .stats-feature::after { width: 190px; height: 190px; right: -80px; bottom: -115px; }
+    .stats-feature .big-number { display: block; position: relative; z-index: 1; margin-top: 25px; font-size: clamp(3.5rem, 6vw, 5rem); letter-spacing: -.07em; font-weight: 900; line-height: 1; }
+    .stats-feature h3 { position: relative; z-index: 1; margin: 10px 0; font-family: Georgia, serif; font-size: 1.55rem; }
+    .stats-feature p { position: relative; z-index: 1; color: rgba(255,255,255,.73); font-size: .88rem; }
+    .stats-small-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat-box { min-height: 126px; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: white; }
+    .stat-box .stat-number { color: var(--navy); font-size: 2rem; letter-spacing: -.06em; font-weight: 900; line-height: 1.1; }
+    .stat-box .stat-label { margin-top: 8px; color: var(--muted); font-size: .78rem; font-weight: 700; }
+    .stat-box .stat-icon { color: var(--green); font-size: 1rem; margin-bottom: 9px; }
+    .class-counts { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .class-count { padding: 14px 10px; border-radius: 14px; text-align: center; background: #f3f7f8; }
+    .class-count strong { color: var(--navy); display: block; font-size: 1.35rem; }
+    .class-count span { color: var(--muted); font-size: .7rem; font-weight: 700; }
+    .data-note { margin-top: 18px; padding: 13px 15px; border-left: 3px solid #d7a83e; border-radius: 0 12px 12px 0; background: #fff8e7; color: #765c25; font-size: .78rem; }
+
+    /* Results */
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .result-card { padding: 27px; border-radius: 20px; background: white; border: 1px solid var(--line); }
+    .result-top { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; }
+    .result-top h3 { margin: 0; color: var(--navy); font-family: Georgia, serif; font-size: 1.35rem; }
+    .result-rate { color: var(--green); font-size: 1.55rem; font-weight: 900; }
+    .result-caption { color: var(--muted); font-size: .78rem; margin-top: 5px; }
+    .progress-track { height: 10px; background: #edf1f3; border-radius: 99px; overflow: hidden; margin-top: 23px; }
+    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #2d8068, #73b69a); }
+    .result-foot { display: flex; justify-content: space-between; color: var(--muted); font-size: .74rem; margin-top: 10px; }
+    .results-caveat { color: var(--muted); font-size: .76rem; margin: 16px 0 0; }
+
+    /* History timeline */
+    .history-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 55px; }
+    .history-aside { padding: 30px; border-radius: var(--radius-xl); background: #fff; border: 1px solid var(--line); box-shadow: 0 13px 36px rgba(16,45,79,.045); align-self: start; }
+    .history-aside .year { color: var(--gold); font-size: 3.3rem; font-weight: 900; letter-spacing: -.07em; line-height: 1; }
+    .history-aside h3 { color: var(--navy); margin: 12px 0 9px; font-family: Georgia, serif; font-size: 1.5rem; }
+    .history-aside p { color: var(--muted); margin: 0; font-size: .87rem; }
+    .timeline { position: relative; padding-left: 30px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 9px; bottom: 12px; width: 1px; background: #cbd8df; }
+    .timeline-item { position: relative; padding: 0 0 31px 14px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ""; position: absolute; left: -29px; top: 7px; width: 11px; height: 11px; border: 3px solid white; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px #c8d5dc; }
+    .timeline-date { color: var(--green); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 850; }
+    .timeline-item h3 { margin: 6px 0; color: var(--navy); font-family: Georgia, serif; font-size: 1.35rem; }
+    .timeline-item p { margin: 0; color: var(--muted); font-size: .89rem; }
+    .history-disclaimer { margin-top: 23px; padding: 14px 16px; background: #f4f7f8; border-radius: 12px; color: #637586; font-size: .76rem; }
+
+    /* Organigram */
+    .org-wrap { padding: 34px; border-radius: var(--radius-xl); background: white; border: 1px solid var(--line); box-shadow: 0 14px 38px rgba(16,45,79,.05); overflow: hidden; }
+    .org-top { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .org-node { min-width: 175px; padding: 15px 18px; text-align: center; border: 1px solid #dce6eb; border-radius: 14px; background: #f8fbfc; }
+    .org-node strong { display: block; color: var(--navy); font-size: .88rem; }
+    .org-node span { display: block; margin-top: 4px; color: var(--muted); font-size: .7rem; }
+    .org-node.primary-node { color: white; background: var(--navy); border-color: var(--navy); min-width: 230px; box-shadow: 0 10px 20px rgba(16,45,79,.15); }
+    .org-node.primary-node strong, .org-node.primary-node span { color: white; }
+    .org-connector { width: 1px; height: 25px; background: #bfccd4; margin: 0 auto; }
+    .org-connector.wide { width: 70%; height: 1px; position: relative; }
+    .org-connector.wide::before, .org-connector.wide::after { content: ""; position: absolute; width: 1px; height: 20px; top: 0; background: #bfccd4; }
+    .org-connector.wide::before { left: 0; }
+    .org-connector.wide::after { right: 0; }
+    .org-branch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 790px; margin: 0 auto; }
+    .org-branch .org-node { background: #edf5f8; }
+    .org-teachers { max-width: 360px; margin: 0 auto; background: #e8f4ee !important; border-color: #cfe6d8; }
+    .org-student-leaders { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 680px; margin: 0 auto; }
+    .org-student-leaders .org-node { background: #fff7e7; border-color: #f1e1bc; }
+    .org-learners { max-width: 250px; margin: 0 auto; background: #f0f2fa; }
+    .org-note { margin: 23px 0 0; text-align: center; color: var(--muted); font-size: .73rem; }
+
+    /* Staff */
+    .staff-toolbar { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 25px; }
+    .staff-toolbar .section-heading { margin: 0; }
+    .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .staff-card { padding: 22px; border-radius: 18px; background: white; border: 1px solid var(--line); transition: transform .22s, box-shadow .22s; }
+    .staff-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .staff-avatar { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; color: var(--navy); background: var(--gold-soft); font-family: Georgia, serif; font-weight: 900; font-size: 1.05rem; }
+    .staff-card h3 { margin: 15px 0 3px; color: var(--navy); font-size: 1.03rem; }
+    .staff-role { color: var(--green); font-size: .78rem; font-weight: 750; }
+    .staff-contact { display: inline-flex; gap: 8px; align-items: center; margin-top: 17px; color: #586e7e; font-size: .78rem; }
+    .staff-empty { grid-column: 1 / -1; padding: 26px; border: 1px dashed #cbd7df; border-radius: 16px; text-align: center; color: var(--muted); }
+
+    /* Admissions */
+    .admissions-section { color: white; background: linear-gradient(130deg, #102d4f, #174f6d); overflow: hidden; }
+    .admissions-section::before { content: ""; position: absolute; width: 520px; height: 520px; right: -190px; top: -260px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 0 0 48px rgba(255,255,255,.025), 0 0 0 95px rgba(255,255,255,.018); }
+    .admissions-section .section-kicker { color: #f6d27d; }
+    .admissions-section .section-heading h2 { color: white; }
+    .admissions-section .section-heading p { color: rgba(255,255,255,.7); }
+    .admissions-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 35px; align-items: start; position: relative; z-index: 2; }
+    .admission-aside { padding-top: 12px; }
+    .admission-aside h3 { margin: 0 0 13px; color: white; font-family: Georgia, serif; font-size: 1.65rem; }
+    .admission-aside p { color: rgba(255,255,255,.72); font-size: .9rem; }
+    .admission-step { display: flex; gap: 12px; margin-top: 22px; }
+    .step-no { flex: 0 0 31px; width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; color: #3b3019; background: var(--gold); font-weight: 900; font-size: .78rem; }
+    .admission-step strong { display: block; color: white; font-size: .84rem; }
+    .admission-step span { display: block; color: rgba(255,255,255,.62); font-size: .75rem; }
+    .form-card { padding: 30px; border-radius: 24px; color: var(--ink); background: white; box-shadow: 0 25px 70px rgba(3,18,32,.25); }
+    .form-card-head { display: flex; justify-content: space-between; gap: 15px; align-items: start; margin-bottom: 24px; }
+    .form-card-head h3 { margin: 0; color: var(--navy); font-family: Georgia, serif; font-size: 1.55rem; }
+    .form-card-head p { color: var(--muted); margin: 5px 0 0; font-size: .78rem; }
+    .required-note { color: #8a98a3; font-size: .7rem; white-space: nowrap; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 6px; color: #43596a; font-size: .75rem; font-weight: 800; }
+    .field label .req { color: #c36a4c; }
+    .field input, .field select, .field textarea {
+      width: 100%; min-height: 46px; padding: 11px 13px; border: 1px solid #dce4e9; border-radius: 11px;
+      outline: 0; background: #fbfcfd; color: var(--ink); font-size: .84rem; transition: border .2s, box-shadow .2s;
+    }
+    .field textarea { min-height: 93px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: #6c9bb7; box-shadow: 0 0 0 3px rgba(40,116,168,.1); background: white; }
+    .field small { display: block; margin-top: 5px; color: #81909b; font-size: .68rem; }
+    .form-divider { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; margin: 4px 0 -1px; color: var(--green); font-size: .73rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+    .form-divider::after { content: ""; height: 1px; flex: 1; background: #e4eaee; }
+    .consent-row { display: flex; align-items: start; gap: 10px; margin: 19px 0; color: #6b7b88; font-size: .72rem; }
+    .consent-row input { margin-top: 4px; accent-color: var(--green); }
+    .form-submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; }
+    .form-submit-row .btn { border: 0; }
+    .form-feedback { display: none; margin-top: 17px; padding: 12px 14px; border-radius: 11px; font-size: .79rem; }
+    .form-feedback.success { display: block; color: #205a45; background: #e9f6ef; }
+    .form-feedback.error { display: block; color: #8b3b2d; background: #fff0ed; }
+    .privacy-note { margin-top: 14px; color: #8a969e; font-size: .68rem; line-height: 1.5; }
+
+    /* Parent community and group portal */
+    .nav-coming { display: inline-flex; align-items: center; vertical-align: middle; margin-left: 4px; padding: 2px 5px; border-radius: 99px; color: #6c531e; background: #fff1c9; font-size: .52rem; letter-spacing: .04em; }
+    .parent-community-card { display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; padding: clamp(26px, 5vw, 55px); border: 1px solid #e1e9ed; border-radius: 28px; background: linear-gradient(120deg, #fff 0%, #f5faf8 100%); box-shadow: var(--shadow); overflow: hidden; }
+    .parent-community-copy h2 { max-width: 650px; margin: 0 0 14px; color: var(--navy); font: 600 clamp(2rem, 4vw, 3.15rem)/1.08 Georgia,serif; letter-spacing: -.04em; }
+    .parent-community-copy p { max-width: 610px; color: var(--muted); margin: 0; }
+    .parent-community-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; margin-top: 24px; }
+    .coming-soon-note { color: #627687; font-size: .75rem; font-weight: 750; }
+    .status-dot { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #d5a33b; box-shadow: 0 0 0 4px rgba(213,163,59,.14); }
+    .parent-community-visual { min-height: 260px; position: relative; display: grid; place-items: center; isolation: isolate; }
+    .community-orbit { position: absolute; width: min(78%, 270px); aspect-ratio: 1; border: 1px solid rgba(40,116,168,.25); border-radius: 50%; }
+    .orbit-one { transform: rotateX(62deg) rotateZ(-18deg); box-shadow: 0 20px 0 rgba(40,116,168,.055); }
+    .orbit-two { width: min(62%, 215px); transform: rotateX(62deg) rotateZ(45deg); border-style: dashed; }
+    .community-center { z-index: 2; width: 105px; height: 105px; display: grid; place-items: center; border: 5px solid #f1d48b; border-radius: 30px; color: #fff; background: linear-gradient(145deg,#173f62,#0c253e); box-shadow: 0 18px 35px rgba(16,45,79,.22); font-weight: 950; letter-spacing: .03em; transform: rotate(-7deg); }
+    .community-person { position: absolute; z-index: 3; display: grid; place-items: center; width: 55px; height: 55px; border: 1px solid #e1eaf0; border-radius: 19px; background: #fff; box-shadow: 0 12px 25px rgba(16,45,79,.1); font-size: 1.55rem; }
+    .person-one { top: 20px; left: 18%; transform: rotate(-9deg); }.person-two { right: 13%; top: 39%; transform: rotate(8deg); }.person-three { bottom: 20px; left: 24%; transform: rotate(7deg); }
+    .community-caption { position: absolute; bottom: 2px; color: #627687; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+
+    /* School assistant chatbot */
+    .school-assistant { position: fixed; z-index: 2500; right: 22px; bottom: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; font-family: inherit; }
+    .assistant-launch { min-height: 58px; display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 999px; padding: 0 19px 0 13px; color: #fff; background: linear-gradient(135deg,#173f62,#0b263f); box-shadow: 0 14px 35px rgba(9,35,59,.3); font-size: .83rem; font-weight: 850; }
+    .assistant-launch:hover { transform: translateY(-3px); }
+    .assistant-launch-icon { width: 34px; height: 34px; display: grid; place-items: center; color: #3e3319; background: var(--gold); border-radius: 50%; font-size: 1.12rem; }
+    .assistant-panel { width: min(390px, calc(100vw - 30px)); height: min(590px, calc(100dvh - 110px)); min-height: 390px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(16,45,79,.12); border-radius: 22px; background: #fff; box-shadow: 0 26px 75px rgba(7,29,50,.24); }
+    .assistant-panel[hidden] { display: none; }
+    .assistant-head { flex: 0 0 auto; display: flex; align-items: center; gap: 11px; padding: 15px; color: white; background: linear-gradient(120deg,#102d4f,#1c5a74); }
+    .assistant-avatar { width: 39px; height: 39px; display: grid; place-items: center; border: 2px solid rgba(255,255,255,.45); border-radius: 13px; color: #173b58; background: var(--gold); font-family: Georgia,serif; font-weight: 900; }
+    .assistant-head-copy { min-width: 0; flex: 1; }.assistant-head-copy strong { display:block; font-size: .84rem; }.assistant-head-copy span { display:block; margin-top: 3px; color: rgba(255,255,255,.73); font-size: .65rem; }
+    .assistant-head-copy i { display:inline-block; width:6px; height:6px; margin-right:5px; border-radius:50%; background:#8de0b3; }
+    .assistant-close { width: 34px; height: 34px; border: 0; border-radius: 10px; color: #fff; background: rgba(255,255,255,.12); font-size: 1.25rem; }
+    .assistant-messages { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; padding: 15px; background: linear-gradient(180deg,#f6f9fb,#fff); }
+    .assistant-message { max-width: 89%; padding: 11px 13px; border-radius: 15px; font-size: .79rem; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .bot-message { align-self: flex-start; color: #334a5d; border: 1px solid #e6edf1; border-bottom-left-radius: 5px; background: #fff; }
+    .user-message { align-self: flex-end; color: #fff; border-bottom-right-radius: 5px; background: #1c587c; }
+    .assistant-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 13px; border-top: 1px solid #eef1f3; }
+    .assistant-quick button { padding: 6px 9px; border: 1px solid #dce6eb; border-radius: 999px; color: #31556d; background: #f8fbfc; font-size: .65rem; font-weight: 750; }
+    .assistant-input-row { display: flex; gap: 7px; align-items: center; padding: 10px 12px; border-top: 1px solid #e9eef1; }
+    .assistant-input-row input { min-width: 0; flex: 1; height: 42px; padding: 0 12px; border: 1px solid #dce5ea; border-radius: 12px; outline: none; font-size: .78rem; }
+    .assistant-input-row input:focus { border-color: #5591b2; box-shadow: 0 0 0 3px rgba(40,116,168,.1); }
+    .assistant-input-row button { width: 42px; height: 42px; border: 0; border-radius: 12px; color: #fff; background: var(--navy); font-size: 1.05rem; }
+    .assistant-footnote { padding: 0 13px 11px; color: #83919a; font-size: .61rem; }
+    .assistant-typing { color: #728492; font-style: italic; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .hp-field { position: absolute !important; width: 1px !important; height: 1px !important; left: -10000px !important; top: auto !important; overflow: hidden !important; }
+
+    /* Contact / Footer */
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 45px; }
+    .contact-copy h2 { color: var(--navy); font-family: Georgia, serif; font-size: clamp(2.1rem, 4vw, 3.2rem); letter-spacing: -.04em; line-height: 1.08; margin: 0 0 16px; }
+    .contact-copy p { color: var(--muted); margin: 0; }
+    .contact-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .contact-card { padding: 22px; border-radius: 17px; border: 1px solid var(--line); background: white; }
+    .contact-icon { width: 38px; height: 38px; display: grid; place-items: center; color: var(--blue); background: var(--blue-soft); border-radius: 12px; }
+    .contact-card strong { display: block; color: var(--navy); margin-top: 13px; font-size: .88rem; }
+    .contact-card a, .contact-card span { color: var(--muted); font-size: .77rem; overflow-wrap: anywhere; }
+    .contact-card a:hover { color: var(--blue); }
+    .footer { padding: 34px 0; color: rgba(255,255,255,.7); background: #0a2038; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .footer-brand { color: white; font-weight: 850; font-size: .88rem; }
+    .footer small { display: block; margin-top: 5px; font-size: .7rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; font-size: .75rem; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); display: flex; justify-content: space-between; gap: 15px; color: rgba(255,255,255,.45); font-size: .68rem; }
+
+    /* Admin panel and dialogs */
+    .admin-section { display: none; padding: 48px 0; background: #eef3f6; border-top: 1px solid #dce5ea; }
+    .admin-section.visible { display: block; }
+    .admin-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+    .admin-head h2 { margin: 0; color: var(--navy); font-family: Georgia, serif; font-size: 2rem; }
+    .admin-login, .admin-dashboard { padding: 25px; border-radius: 18px; background: white; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(16,45,79,.07); }
+    .admin-login { max-width: 450px; }
+    .admin-login p, .admin-muted { color: var(--muted); font-size: .82rem; }
+    .admin-login .field { margin: 15px 0; }
+    .admin-warning { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; color: #7b5e26; background: #fff6df; font-size: .72rem; }
+    .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .admin-stat { padding: 16px; border-radius: 13px; background: #f4f7f8; }
+    .admin-stat strong { display: block; color: var(--navy); font-size: 1.7rem; }
+    .admin-stat span { color: var(--muted); font-size: .72rem; }
+    .admin-request-list { display: grid; gap: 12px; }
+    .request-card { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+    .request-card-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+    .request-card h4 { margin: 0; color: var(--navy); font-size: .98rem; }
+    .request-meta { margin-top: 5px; color: var(--muted); font-size: .72rem; }
+    .status-chip { display: inline-flex; padding: 5px 9px; border-radius: 999px; font-size: .66rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+    .status-pending { color: #88651f; background: #fff3d4; }
+    .status-approved { color: #21634a; background: #e5f5eb; }
+    .status-declined { color: #943f34; background: #ffebe8; }
+    .request-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px 20px; margin-top: 14px; color: #536879; font-size: .75rem; }
+    .request-details b { color: var(--navy); }
+    .request-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+    .mini-btn { border: 1px solid #dce4e9; border-radius: 8px; background: white; color: var(--navy); padding: 7px 10px; font-size: .7rem; font-weight: 800; }
+    .mini-btn:hover { background: #f0f5f7; }
+    .mini-btn.danger { color: #a34a3d; }
+    .empty-requests { padding: 25px; border: 1px dashed #c9d5dc; border-radius: 12px; text-align: center; color: var(--muted); font-size: .82rem; }
+    .admin-toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Custom cursor: only enabled on pointer/hover devices */
+    .cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; z-index: 3000; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); }
+    .cursor-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .cursor-ring { width: 30px; height: 30px; border: 1px solid rgba(233,184,75,.8); border-radius: 50%; transition: width .2s, height .2s, background .2s; }
+    body.cursor-ready, body.cursor-ready a, body.cursor-ready button { cursor: none; }
+    body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
+    body.cursor-hover .cursor-ring { width: 48px; height: 48px; background: rgba(233,184,75,.08); }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .08s; } .delay-2 { transition-delay: .16s; } .delay-3 { transition-delay: .24s; }
+
+    @media (max-width: 1000px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: .78rem; }
+      .brand { min-width: 200px; }
+      .nav-actions .btn { padding-inline: 14px; }
+      .intro-grid, .history-grid { gap: 32px; }
+      .admissions-layout { grid-template-columns: .65fr 1.35fr; gap: 24px; }
+    }
+    @media (max-width: 1100px) {
+      .topline-right { display: none; }
+      .topline-location { display: none; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-wrap { height: 70px; }
+      .nav-actions .btn-outline { display: none; }
+      .nav-links {
+        position: fixed; left: 0; right: 0; top: 106px; height: calc(100dvh - 106px); padding: 30px 26px 45px;
+        display: flex; flex-direction: column; align-items: stretch; gap: 0; background: rgba(255,255,255,.98);
+        transform: translateX(105%); transition: transform .3s ease; box-shadow: -20px 25px 35px rgba(16,45,79,.08);
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links a { padding: 16px 4px; border-bottom: 1px solid var(--line); font-size: 1rem; }
+      .hero { min-height: 640px; }
+      .hero-content { width: min(690px, 88%); }
+      .numbers-panel { grid-template-columns: repeat(2, 1fr); }
+      .number-item:nth-child(2) { border-right: 0; }
+      .number-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .intro-grid, .stats-layout, .history-grid, .admissions-layout, .contact-grid { grid-template-columns: 1fr; }
+      .intro-grid { gap: 34px; }
+      .levels-grid { grid-template-columns: 1fr 1fr; }
+      .level-card:last-child { grid-column: 1 / -1; min-height: 260px; }
+      .stats-feature { min-height: 270px; }
+      .history-aside { max-width: 500px; }
+      .admission-aside { max-width: 650px; }
+      .staff-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { gap: 28px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 30px, var(--max)); }
+      .section { padding: 70px 0; }
+      .topline-inner { min-height: 32px; font-size: .68rem; }
+      .topline-left { gap: 12px; }
+      .brand { min-width: 0; gap: 9px; }
+      .brand-mark { width: 42px; height: 42px; border-radius: 13px; }
+      .brand-name { font-size: .69rem; }
+      .brand-sub { font-size: .57rem; }
+      .nav-actions { gap: 7px; }
+      .nav-actions .btn-gold { min-height: 41px; padding: 0 12px; font-size: .73rem; }
+      .menu-toggle { width: 41px; height: 41px; }
+      .nav-links { top: 102px; height: calc(100dvh - 102px); }
+      .hero { min-height: 630px; }
+      .hero-content { width: 100%; padding: 70px 0 102px; }
+      .hero h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
+      .hero-lead { font-size: .96rem; }
+      .hero-actions { gap: 9px; }
+      .hero-actions .btn { width: 100%; }
+      .hero-side-label { display: none; }
+      .hero-orb { width: 130px; height: 130px; right: 1%; top: 10%; }
+      .numbers-ribbon { margin-top: -27px; }
+      .numbers-panel { border-radius: 17px; }
+      .number-item { min-height: 99px; padding: 16px 12px; gap: 10px; }
+      .number-icon { flex-basis: 35px; width: 35px; height: 35px; border-radius: 11px; font-size: 1rem; }
+      .number-value { font-size: 1.45rem; }
+      .number-label { font-size: .67rem; }
+      .intro-copy h2 { font-size: 2.45rem; }
+      .levels-grid { grid-template-columns: 1fr; }
+      .level-card, .level-card:last-child { grid-column: auto; min-height: 270px; }
+      .stats-small-grid { gap: 9px; }
+      .stat-box { min-height: 110px; padding: 16px; }
+      .stat-box .stat-number { font-size: 1.7rem; }
+      .class-counts { gap: 7px; }
+      .class-count { padding: 12px 5px; }
+      .results-grid { grid-template-columns: 1fr; }
+      .org-wrap { padding: 22px 13px; }
+      .org-top { gap: 8px; }
+      .org-node { min-width: 0; width: 100%; padding: 12px 9px; }
+      .org-top .org-node { width: calc(50% - 4px); }
+      .org-node.primary-node { width: 80%; min-width: 0; }
+      .org-branch { gap: 7px; }
+      .org-branch .org-node { padding-inline: 4px; }
+      .org-branch .org-node strong { font-size: .7rem; }
+      .org-branch .org-node span { font-size: .62rem; }
+      .org-student-leaders { gap: 7px; }
+      .org-student-leaders .org-node { padding-inline: 5px; }
+      .org-student-leaders .org-node strong { font-size: .72rem; }
+      .org-student-leaders .org-node span { font-size: .61rem; }
+      .staff-toolbar { display: block; }
+      .staff-toolbar .btn { margin-top: 18px; }
+      .staff-grid { grid-template-columns: 1fr; }
+      .public-announcements-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 22px 17px; }
+      .form-card-head { display: block; }
+      .required-note { display: block; margin-top: 7px; }
+      .form-grid { grid-template-columns: 1fr; gap: 13px; }
+      .field.full { grid-column: auto; }
+      .form-divider { grid-column: auto; }
+      .form-submit-row .btn { width: 100%; }
+      .contact-cards { grid-template-columns: 1fr; }
+      .parent-community-card { grid-template-columns: 1fr; gap: 8px; }
+      .parent-community-visual { min-height: 230px; }
+      .parent-community-actions { align-items: flex-start; flex-direction: column; }
+      .school-assistant { right: 12px; bottom: 12px; }
+      .assistant-panel { width: calc(100vw - 24px); height: min(70dvh, 560px); min-height: 360px; }
+      .assistant-launch { min-height: 52px; }
+      .footer-inner, .footer-bottom { align-items: flex-start; flex-direction: column; }
+      .footer-credit { overflow-wrap: anywhere; }
+      .admin-stats { grid-template-columns: 1fr 1fr; }
+      .request-details { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      #journeyScene { display: none; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="journeyScene" aria-hidden="true" aria-label="Decorative 3D school campus journey"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <div class="topline">
+    <div class="container topline-inner">
+      <div class="topline-left">
+        <span><span class="tiny-icon">✦</span>Groupe Scolaire Saint Pierre Kinyambi</span>
+        <span class="topline-location">📍 Rugalika, Kamonyi · Rwanda</span>
+        <a href="tel:+250788803071"><span class="tiny-icon">☎</span>+250 788 803 071</a>
+      </div>
+      <div class="topline-right">
+        <a href="mailto:gskinyambi@gmial.com"><span class="tiny-icon">✉</span>gskinyambi@gmial.com</a>
+        <span>Nursery · Primary · O-Level</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Groupe Scolaire Saint Pierre Kinyambi home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 100 100" role="img" aria-label="GSSPK school emblem" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173f62"/><stop offset="1" stop-color="#0a2038"/></linearGradient></defs>
+<path d="M50 4 88 18v29c0 23-15 39-38 49C27 86 12 70 12 47V18L50 4Z" fill="url(#logoGradient)" stroke="#e9b84b" stroke-width="3"/>
+<path d="M23 25h54v26c-8-4-17-4-27 2-10-6-19-6-27-2V25Z" fill="#fff" opacity=".96"/>
+<path d="M50 26v27M27 31h18M55 31h18" stroke="#2f8066" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M26 57c9-5 17-3 24 2 7-5 15-7 24-2" fill="none" stroke="#e9b84b" stroke-width="3" stroke-linecap="round"/>
+<text x="50" y="76" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="900" letter-spacing="-.8" fill="#fff">GSSPK</text>
+<text x="50" y="87" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" font-weight="700" letter-spacing="1.5" fill="#f3d78f">1942</text>
+</svg></span>
+        <span class="brand-name">GROUPE SCOLAIRE<br>SAINT PIERRE KINYAMBI<span class="brand-sub">Learning with purpose</span></span>
+      </a>
+      <nav class="nav-links" id="primaryNav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#announcements" id="announcementsNavLink" hidden>Announcements</a>
+        <a href="#statistics">Statistics</a>
+        <a href="#history">History</a>
+        <a href="#organigram">Organigram</a>
+        <a href="#staff">Staff</a>
+        <a href="group.html" aria-label="Open the parents online group portal, coming soon">Parents' Group <span class="nav-coming">NEW</span></a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="ademin.html">Admin access</a>
+        <a class="btn btn-gold" href="#admissions">Apply for admission <span aria-hidden="true">↗</span></a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primaryNav"><span aria-hidden="true">☰</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-label="Welcome">
+      <canvas id="heroScene" aria-hidden="true"></canvas>
+      <div class="hero-orb" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-pill"><span></span> A SCHOOL FOR EVERY STEP OF THE JOURNEY</div>
+          <h1>Growing minds.<br><em>Shaping</em> futures.</h1>
+          <p class="hero-lead">Welcome to Groupe Scolaire Saint Pierre Kinyambi — a learning community serving children from nursery through primary and O-Level secondary education.</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#education">Explore our school <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-outline" href="#admissions">Learner registration <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-note"><span class="rule"></span><span><strong>Established 1942</strong> · Secondary education introduced in 2023</span></div>
+        </div>
+      </div>
+      <div class="hero-side-label">Faith · Learning · Service</div>
+      <div class="hero-bottom" aria-hidden="true"></div>
+    </section>
+
+
+    <section class="section section-soft" id="announcements" hidden>
+      <div class="container">
+        <div class="section-heading reveal in-view">
+          <div class="section-kicker">School updates</div>
+          <h2>Announcements and important notices.</h2>
+          <p>Messages published by the school administration for parents, learners and staff.</p>
+        </div>
+        <div class="public-announcements-grid" id="publicAnnouncementList" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <div class="numbers-ribbon">
+      <div class="container">
+        <div class="numbers-panel">
+          <div class="number-item"><div class="number-icon" aria-hidden="true">♧</div><div><div class="number-value" id="ribbonLearners">1,738</div><div class="number-label">Learners enrolled</div></div></div>
+          <div class="number-item"><div class="number-icon" aria-hidden="true">✎</div><div><div class="number-value" id="ribbonTeachers">40</div><div class="number-label">Teachers</div></div></div>
+          <div class="number-item"><div class="number-icon" aria-hidden="true">▤</div><div><div class="number-value" id="ribbonClasses">36</div><div class="number-label">Classes across 3 levels</div></div></div>
+          <div class="number-item"><div class="number-icon" aria-hidden="true">✧</div><div><div class="number-value" id="ribbonEstablished">1942</div><div class="number-label">Year established</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="about">
+      <div class="container intro-grid">
+        <div class="intro-copy reveal">
+          <div class="section-kicker">Who we are</div>
+          <h2>A community where every learner can discover their potential.</h2>
+          <p>Groupe Scolaire Saint Pierre Kinyambi brings together nursery, primary and O-Level secondary education within one school community. Our aim is to support learners as they build knowledge, confidence, good character and the skills they need for the future.</p>
+          <p>Founded on 1 January 1942, the school has a long history. Its secondary section opened on 25 September 2023, adding an important new stage to the learning journey offered at the school.</p>
+          <div class="intro-signature"><span class="signature-line"></span><div><strong>Groupe Scolaire Saint Pierre Kinyambi</strong><small>Learning with purpose, serving our community</small></div></div>
+        </div>
+        <div class="values-stack">
+          <article class="value-card reveal delay-1">
+            <div class="value-label">✦ Suggested school motto</div>
+            <h3>Faith, Knowledge and Service</h3>
+            <p>A short expression of the values that can guide learning, responsibility and service to others.</p>
+            <div class="draft-note">Proposed wording — confirm with the school administration.</div>
+          </article>
+          <article class="value-card reveal delay-2">
+            <div class="value-label">◎ Suggested vision</div>
+            <h3>Our vision</h3>
+            <p>To be a welcoming and respected school that nurtures knowledgeable, responsible and capable citizens who contribute positively to society.</p>
+            <div class="draft-note">Draft vision — confirm or replace with the official statement.</div>
+          </article>
+          <article class="value-card reveal delay-3">
+            <div class="value-label">◇ Suggested mission</div>
+            <h3>Our mission</h3>
+            <p>To provide quality, inclusive and values-based education that helps every learner develop academically, socially, spiritually and personally.</p>
+            <div class="draft-note">Draft mission — confirm or replace with the official statement.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="education">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Our education levels</div>
+          <h2>Three stages. One continuous journey.</h2>
+          <p>Groupe Scolaire Saint Pierre Kinyambi serves learners at nursery, primary and Ordinary Level (O-Level) secondary level.</p>
+        </div>
+        <div class="levels-grid">
+          <article class="level-card nursery reveal">
+            <div class="level-icon" aria-hidden="true">✿</div>
+            <h3>Nursery</h3>
+            <p>A foundation for early learning, curiosity, communication, creativity and social development.</p>
+            <div class="level-meta"><span class="meta-chip" id="levelNurseryClasses">6 classes</span><span class="meta-chip" id="levelNurseryLearners">373 learners</span></div>
+            <span class="level-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="level-card primary reveal delay-1">
+            <div class="level-icon" aria-hidden="true">✎</div>
+            <h3>Primary</h3>
+            <p>Building strong foundations in literacy, numeracy, knowledge, practical skills and positive learning habits.</p>
+            <div class="level-meta"><span class="meta-chip" id="levelPrimaryClasses">23 classes</span><span class="meta-chip" id="levelPrimaryLearners">1,098 learners</span></div>
+            <span class="level-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="level-card secondary reveal delay-2">
+            <div class="level-icon" aria-hidden="true">⌘</div>
+            <h3>Secondary · O-Level</h3>
+            <p>Ordinary Level secondary education that helps learners deepen subject knowledge and prepare for their next step.</p>
+            <div class="level-meta"><span class="meta-chip" id="levelSecondaryClasses">7 classes</span><span class="meta-chip" id="levelSecondaryLearners">267 learners</span><span class="meta-chip">O-Level only</span></div>
+            <span class="level-arrow" aria-hidden="true">↗</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="statistics">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">The school at a glance</div>
+          <h2>Our community in numbers.</h2>
+          <p>The following figures are the school statistics supplied for this website draft.</p>
+        </div>
+        <div class="stats-layout">
+          <div class="stats-feature reveal">
+            <div class="section-kicker" style="color:#f6d27d">Total enrolment</div>
+            <span class="big-number" id="displayTotalLearners">1,738</span>
+            <h3>Learners at the school</h3>
+            <p>Across nursery, primary and O-Level secondary education.</p>
+            <div class="class-counts">
+              <div class="class-count"><strong id="displayNurseryClasses">6</strong><span>Nursery classes</span></div>
+              <div class="class-count"><strong id="displayPrimaryClasses">23</strong><span>Primary classes</span></div>
+              <div class="class-count"><strong id="displaySecondaryClasses">7</strong><span>Secondary classes</span></div>
+            </div>
+          </div>
+          <div class="reveal delay-1">
+            <div class="stats-small-grid">
+              <div class="stat-box"><div class="stat-icon">◉</div><div class="stat-number" id="displayGirls">878</div><div class="stat-label">Girls</div></div>
+              <div class="stat-box"><div class="stat-icon">◉</div><div class="stat-number" id="displayBoys">862</div><div class="stat-label">Boys</div></div>
+              <div class="stat-box"><div class="stat-icon">♧</div><div class="stat-number" id="displayNurseryLearners">373</div><div class="stat-label">Nursery learners</div></div>
+              <div class="stat-box"><div class="stat-icon">▤</div><div class="stat-number" id="displayPrimaryLearners">1,098</div><div class="stat-label">Primary learners</div></div>
+              <div class="stat-box"><div class="stat-icon">⌘</div><div class="stat-number" id="displaySecondaryLearners">267</div><div class="stat-label">Secondary learners</div></div>
+              <div class="stat-box"><div class="stat-icon">✎</div><div class="stat-number" id="displayTeachers">40</div><div class="stat-label">Teachers</div></div>
+            </div>
+            <div class="data-note" id="statisticsValidationNote"><strong>Statistics check:</strong> the supplied girls' and boys' figures add up to 1,740, while the stated total and the three education-level figures add up to 1,738. Please verify the gender figures or official total before publishing.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="results">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Learning outcomes</div>
+          <h2>Previous-year examination results.</h2>
+          <p>Pass figures provided for the primary and secondary sections.</p>
+        </div>
+        <div class="results-grid">
+          <article class="result-card reveal">
+            <div class="result-top"><div><h3>Primary</h3><div class="result-caption" id="displayPrimaryResultCaption">67 learners passed out of 69</div></div><div class="result-rate" id="displayPrimaryPassRate">97.1%</div></div>
+            <div class="progress-track" id="displayPrimaryProgressTrack" role="progressbar" aria-label="Primary pass rate" aria-valuenow="97.1" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" id="displayPrimaryProgress" style="width:97.1%"></div></div>
+            <div class="result-foot"><span id="displayPrimaryPassed">67 passed</span><span id="displayPrimaryNotPassed">2 did not pass</span></div>
+          </article>
+          <article class="result-card reveal delay-1">
+            <div class="result-top"><div><h3>Secondary · O-Level</h3><div class="result-caption" id="displaySecondaryResultCaption">29 learners passed out of 50</div></div><div class="result-rate" id="displaySecondaryPassRate">58.0%</div></div>
+            <div class="progress-track" id="displaySecondaryProgressTrack" role="progressbar" aria-label="Secondary pass rate" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" id="displaySecondaryProgress" style="width:58%"></div></div>
+            <div class="result-foot"><span id="displaySecondaryPassed">29 passed</span><span id="displaySecondaryNotPassed">21 did not pass</span></div>
+          </article>
+        </div>
+        <p class="results-caveat">These results are displayed as supplied. Add the exact examination year and confirm the figures with the school before treating them as an official published report.</p>
+      </div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Our story</div>
+          <h2>A school with roots reaching back to 1942.</h2>
+          <p>The dates below are the historical milestones currently confirmed for this website draft.</p>
+        </div>
+        <div class="history-grid">
+          <aside class="history-aside reveal">
+            <div class="year">1942</div>
+            <h3>More than eight decades of learning.</h3>
+            <p>Groupe Scolaire Saint Pierre Kinyambi was established on 1 January 1942. The school continues to serve learners through its nursery, primary and O-Level sections.</p>
+          </aside>
+          <div class="timeline reveal delay-1">
+            <article class="timeline-item">
+              <div class="timeline-date">1 January 1942</div>
+              <h3>The school is established</h3>
+              <p>Groupe Scolaire Saint Pierre Kinyambi began its educational history. This founding date marks the beginning of the institution's service to learners and the community.</p>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-date">25 September 2023</div>
+              <h3>Secondary education begins</h3>
+              <p>The school opens its secondary section, offering Ordinary Level (O-Level) education. This expands the school's learning pathway beyond nursery and primary.</p>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-date">Today</div>
+              <h3>Three education levels</h3>
+              <p>The school currently reports 6 nursery classes, 23 primary classes and 7 secondary classes, serving a stated total of 1,738 learners with 40 teachers.</p>
+            </article>
+            <div class="history-disclaimer">This is a fact-based summary using the dates and information supplied. To create a fuller official history, the school can add verified details about its founders, original location, early programmes, former headteachers, major developments and community milestones.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="organigram">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">School leadership</div>
+          <h2>School organigram.</h2>
+          <p>A proposed presentation of the leadership, support and learner representation structure based on the roles provided.</p>
+        </div>
+        <div class="org-wrap reveal">
+          <div class="org-top">
+            <div class="org-node"><strong>Catholic Church</strong><span>Church leadership / school foundation</span></div>
+            <div class="org-node"><strong>Parents Association</strong><span>Parent representation and partnership</span></div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node primary-node"><strong>Headmaster</strong><span>Overall school leadership and coordination</span></div>
+          <div class="org-connector"></div>
+          <div class="org-connector wide"></div>
+          <div class="org-branch">
+            <div class="org-node"><strong>DOS</strong><span>Academic leadership</span></div>
+            <div class="org-node"><strong>DOD</strong><span>School duties / discipline</span></div>
+            <div class="org-node"><strong>Bursar</strong><span>School finance and accounts</span></div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node org-teachers"><strong>Teaching Staff</strong><span>Nursery · Primary · Secondary</span></div>
+          <div class="org-connector"></div>
+          <div class="org-student-leaders">
+            <div class="org-node"><strong>Headboy and Headgirl</strong><span>Student leadership representatives</span></div>
+            <div class="org-node"><strong>Class Monitors and Class Monitresses</strong><span>Class-level learner representatives</span></div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node org-learners"><strong>Learners</strong><span>All enrolled students</span></div>
+          <p class="org-note">Organigram layout is editable. Confirm the exact reporting lines and the full meanings of DOS and DOD with the school administration.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="staff">
+      <div class="container">
+        <div class="staff-toolbar">
+          <div class="section-heading reveal">
+            <div class="section-kicker">People who make the school</div>
+            <h2>Meet our school staff.</h2>
+            <p>School staff details supplied for this first website version.</p>
+          </div>
+          <a class="btn btn-outline" href="#contact">Contact the school ↗</a>
+        </div>
+        <div class="staff-grid" id="staffGrid" aria-live="polite">
+          <article class="staff-card"><div class="staff-avatar">SS</div><h3>Singa Silas</h3><div class="staff-role">Headmaster</div><a class="staff-contact" href="tel:0788803071">☎ 0788803071</a></article>
+          <article class="staff-card"><div class="staff-avatar">TR</div><h3>TEGURUGORI Rachel</h3><div class="staff-role">Nursery Teacher</div><a class="staff-contact" href="tel:07953590788">☎ 07953590788</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section admissions-section" id="admissions">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Join our learning community</div>
+          <h2>Start a learner registration request.</h2>
+          <p>Parents and guardians can submit a request for the school to review. Submission does not mean that admission has been confirmed.</p>
+        </div>
+        <div class="admissions-layout">
+          <aside class="admission-aside reveal">
+            <h3>A simple first step.</h3>
+            <p>Complete the parent or guardian details and the learner's information. The school administration can then review the request and contact the family.</p>
+            <div class="admission-step"><span class="step-no">1</span><div><strong>Complete the form</strong><span>Provide accurate parent and learner details.</span></div></div>
+            <div class="admission-step"><span class="step-no">2</span><div><strong>Submit your request</strong><span>Your request is marked as pending review.</span></div></div>
+            <div class="admission-step"><span class="step-no">3</span><div><strong>Wait for school feedback</strong><span>The school will contact you using the details provided.</span></div></div>
+          </aside>
+          <div class="form-card reveal delay-1">
+            <div class="form-card-head">
+              <div><h3>Learner registration form</h3><p>Fields marked with * are required.</p></div>
+              <span class="required-note">Parent / Guardian + Learner</span>
+            </div>
+            <form id="registrationForm" novalidate>
+              <div class="hp-field" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+              <div class="form-grid">
+                <div class="form-divider">Parent / guardian information</div>
+                <div class="field"><label for="parentName">Full name <span class="req">*</span></label><input id="parentName" name="parentName" type="text" autocomplete="name" required maxlength="100" placeholder="Parent or guardian full name"></div>
+                <div class="field"><label for="parentRelationship">Relationship to learner <span class="req">*</span></label><select id="parentRelationship" name="parentRelationship" required><option value="">Select relationship</option><option>Mother</option><option>Father</option><option>Guardian</option><option>Other relative</option><option>Other</option></select></div>
+                <div class="field"><label for="parentPhone">Phone / WhatsApp <span class="req">*</span></label><input id="parentPhone" name="parentPhone" type="tel" autocomplete="tel" required maxlength="25" placeholder="e.g. +250 7XX XXX XXX"></div>
+                <div class="field"><label for="parentEmail">Email address <span class="req">*</span></label><input id="parentEmail" name="parentEmail" type="email" autocomplete="email" required maxlength="120" placeholder="name@example.com"></div>
+                <div class="field full"><label for="parentAddress">Residence / address <span class="req">*</span></label><input id="parentAddress" name="parentAddress" type="text" required maxlength="180" placeholder="District, sector, cell or village"></div>
+
+                <div class="form-divider">Learner information</div>
+                <div class="field"><label for="learnerName">Learner's full name <span class="req">*</span></label><input id="learnerName" name="learnerName" type="text" required maxlength="100" placeholder="Child's full name"></div>
+                <div class="field"><label for="learnerGender">Gender <span class="req">*</span></label><select id="learnerGender" name="learnerGender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option></select></div>
+                <div class="field"><label for="learnerDob">Date of birth <span class="req">*</span></label><input id="learnerDob" name="learnerDob" type="date" required></div>
+                <div class="field"><label for="learnerLevel">Education level <span class="req">*</span></label><select id="learnerLevel" name="learnerLevel" required><option value="">Choose level</option><option value="Nursery">Nursery</option><option value="Primary">Primary</option><option value="Secondary - O-Level">Secondary (O-Level)</option></select></div>
+                <div class="field"><label for="learnerClass">Class requested <span class="req">*</span></label><select id="learnerClass" name="learnerClass" required disabled><option value="">Choose education level first</option></select><small>Select your preferred class; final placement is confirmed by the school.</small></div>
+                <div class="field"><label for="previousSchool">Previous school (optional)</label><input id="previousSchool" name="previousSchool" type="text" maxlength="140" placeholder="Name of previous school"></div>
+                <div class="field full"><label for="applicationNote">Additional information / reason for application</label><textarea id="applicationNote" name="applicationNote" maxlength="1200" placeholder="Share any information the school should consider when reviewing this request."></textarea></div>
+              </div>
+              <div class="consent-row"><input id="consent" name="consent" type="checkbox" required><label for="consent">I confirm that the information provided is accurate and understand that this is a registration request for school review, not a confirmed admission.</label></div>
+              <div class="form-submit-row"><button class="btn btn-primary" type="submit">Submit registration request <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="reset">Clear form</button></div>
+              <div id="formFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+              <p class="privacy-note" id="admissionPrivacyNote">Applications will be sent to the school's private Google Sheets intake once the school deployment URL is configured. Until then, this form is in demonstration mode and saves only in this browser. Do not submit real learner information before the connection is completed.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft parent-community-section" id="parent-community">
+      <div class="container parent-community-card reveal">
+        <div class="parent-community-copy">
+          <div class="section-kicker">Parents · Partnership · Communication</div>
+          <h2>One school community. A stronger connection.</h2>
+          <p>Our upcoming online parents' group will provide a shared place for school updates, parent meetings, questions and constructive communication with the school community.</p>
+          <div class="parent-community-actions">
+            <a class="btn btn-primary" href="group.html">Open parents' group <span aria-hidden="true">↗</span></a>
+            <span class="coming-soon-note"><span class="status-dot"></span> Online group portal · Coming soon</span>
+          </div>
+        </div>
+        <div class="parent-community-visual" aria-hidden="true">
+          <div class="community-orbit orbit-one"></div><div class="community-orbit orbit-two"></div>
+          <div class="community-center">GSSPK</div>
+          <div class="community-person person-one">👨‍👩‍👧</div><div class="community-person person-two">👩‍🏫</div><div class="community-person person-three">👨‍👧</div>
+          <span class="community-caption">Parents · Teachers · School</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <div class="section-kicker">Get in touch</div>
+          <h2>We are here to help.</h2>
+          <p>For questions about the school, education levels or learner registration, contact Groupe Scolaire Saint Pierre Kinyambi using the details below.</p>
+        </div>
+        <div class="contact-cards reveal delay-1">
+          <div class="contact-card"><div class="contact-icon">☎</div><strong>Phone / WhatsApp</strong><a href="https://wa.me/250788803071" target="_blank" rel="noopener">+250 788 803 071</a></div>
+          <div class="contact-card"><div class="contact-icon">✉</div><strong>Email</strong><a href="mailto:gskinyambi@gmial.com">gskinyambi@gmial.com</a></div>
+          <div class="contact-card"><div class="contact-icon">⌂</div><strong>School location</strong><address class="school-address">RWANDA, Southern Province, Kamonyi District, Rugalika Sector, Sheli Cell, Kigarama Village</address><a href="https://www.google.com/maps/search/?api=1&query=RWANDA%2C%20Southern%20Province%2C%20Kamonyi%20District%2C%20Rugalika%20Sector%2C%20Sheli%20Cell%2C%20Kigarama%20Village" target="_blank" rel="noopener noreferrer">View location on map ↗</a></div>
+          <div class="contact-card"><div class="contact-icon">◷</div><strong>School history</strong><span>Established 1 January 1942</span></div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div><div class="footer-brand">GROUPE SCOLAIRE SAINT PIERRE KINYAMBI</div><small>Learning with purpose · Nursery · Primary · O-Level</small></div>
+        <div class="footer-links"><a href="#about">About</a><a href="#education">Education</a><a href="#admissions">Admissions</a><a href="#contact">Contact</a><a href="group.html">Parents' group</a><a href="ademin.html">Admin portal</a></div>
+      </div>
+      <div class="footer-credit">
+        <div>Designed and developed by <a href="https://ikaze-digital.vercel.app/" target="_blank" rel="noopener noreferrer">Ikaze Digital</a>.</div>
+        <div>Website: <a href="https://ikaze-digital.vercel.app/" target="_blank" rel="noopener noreferrer">ikaze-digital.vercel.app</a> · Email: <a href="mailto:ikazedigital@gmail.com">ikazedigital@gmail.com</a> · WhatsApp: <a href="https://wa.me/250794204258" target="_blank" rel="noopener noreferrer">+250 794 204 258</a></div>
+        <div>School location: RWANDA, Southern Province, Kamonyi District, Rugalika Sector, Sheli Cell, Kigarama Village.</div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="currentYear"></span> Groupe Scolaire Saint Pierre Kinyambi.</span><span>Website information should be confirmed by school administration before publication.</span></div>
+    </div>
+  </footer>
+
+  <div class="school-assistant" id="schoolAssistant">
+    <section class="assistant-panel" id="assistantPanel" role="dialog" aria-label="GSSPK school assistant" aria-modal="false" hidden>
+      <div class="assistant-head">
+        <div class="assistant-avatar" aria-hidden="true">G</div>
+        <div class="assistant-head-copy"><strong>GSSPK AI School Assistant</strong><span><i></i> Ready to help with school information</span></div>
+        <button class="assistant-close" id="assistantClose" type="button" aria-label="Close school assistant">×</button>
+      </div>
+      <div class="assistant-messages" id="assistantMessages" aria-live="polite">
+        <div class="assistant-message bot-message">Muraho! Welcome to Groupe Scolaire Saint Pierre Kinyambi. Ask me about admissions, classes, school history, staff or contacts.</div>
+      </div>
+      <div class="assistant-quick" aria-label="Suggested questions">
+        <button type="button" data-question="How can I register my child?">Admissions</button>
+        <button type="button" data-question="Which classes does the school offer?">Classes</button>
+        <button type="button" data-question="Where is the school located?">Location</button>
+      </div>
+      <form class="assistant-input-row" id="assistantForm">
+        <label class="sr-only" for="assistantQuestion">Ask a school question</label>
+        <input id="assistantQuestion" name="question" type="text" maxlength="500" placeholder="Ask a school question…" autocomplete="off" required>
+        <button type="submit" aria-label="Send question">➤</button>
+      </form>
+      <div class="assistant-footnote">For official decisions, please contact the school directly.</div>
+    </section>
+    <button class="assistant-launch" id="assistantToggle" type="button" aria-expanded="false" aria-controls="assistantPanel">
+      <span class="assistant-launch-icon" aria-hidden="true">✦</span><span>Ask GSSPK</span>
+    </button>
+  </div>
+
+  <script>
+    /* ============================ EDIT HERE ============================
+       Add more staff by adding objects to SCHOOL_STAFF, for example:
+       { name: "Full Name", role: "Teacher", phone: "07XXXXXXXX" }
+       The staff cards are generated automatically from this list.
+       ================================================================== */
+    const SCHOOL_STAFF = [
+      { name: "Singa Silas", role: "Headmaster", phone: "0788803071" },
+      { name: "TEGURUGORI Rachel", role: "Nursery Teacher", phone: "07953590788" }
+      // Add other staff members below, separated by commas.
+    ];
+
+    const REQUEST_STORAGE_KEY = "gskinyambi_registration_requests_v1";
+
+    // Paste the deployed Google Apps Script Web App URL here after following
+    // SHEETS_SETUP.txt. The actual Google Sheet is never made public.
+    const GOOGLE_SHEETS_WEB_APP_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    // Optional secure AI proxy URL. Never put an AI provider secret/API key in this file.
+    // Leave empty to use the built-in school FAQ assistant until the AI backend is deployed.
+    const SCHOOL_AI_ENDPOINT = "";
+
+    const SHEETS_CONNECTED = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:[?#].*)?$/.test(GOOGLE_SHEETS_WEB_APP_URL);
+
+    // School facts used in this first website draft (edit these if the school confirms updates).
+    const SCHOOL_DATA = {
+      established: "1 January 1942",
+      secondaryOpened: "25 September 2023",
+      learners: 1738,
+      girls: 878,
+      boys: 862,
+      nurseryLearners: 373,
+      primaryLearners: 1098,
+      secondaryLearners: 267,
+      teachers: 40,
+      nurseryClasses: 6,
+      primaryClasses: 23,
+      secondaryClasses: 7,
+      primaryPassed: 67,
+      primaryCandidates: 69,
+      secondaryPassed: 29,
+      secondaryCandidates: 50
+    };
+
+    // --------------------------- Helpers ---------------------------
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+    const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
+    const formatDate = (value) => {
+      if (!value) return "—";
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    };
+    const getRequests = () => {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(REQUEST_STORAGE_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        console.error("Could not read registration requests:", error);
+        return [];
+      }
+    };
+    const saveRequests = (requests) => {
+      try {
+        localStorage.setItem(REQUEST_STORAGE_KEY, JSON.stringify(requests));
+        return true;
+      } catch (error) {
+        console.error("Could not save registration requests:", error);
+        return false;
+      }
+    };
+
+    // ------------------------- Staff directory -------------------------
+    function getManagedStaff() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("gskinyambi_staff_v1") || "null");
+        return Array.isArray(saved) ? saved : SCHOOL_STAFF;
+      } catch { return SCHOOL_STAFF; }
+    }
+
+    function renderStaff() {
+      const grid = $("#staffGrid");
+      if (!grid) return;
+      const people = getManagedStaff();
+      if (!people.length) {
+        grid.innerHTML = '<div class="staff-empty">School staff information will be added here.</div>';
+        return;
+      }
+      grid.innerHTML = people.map(person => {
+        const name = String(person.name || "School staff member");
+        const initials = name.trim().split(/\s+/).slice(0, 2).map(part => part[0] || "").join("").toUpperCase();
+        const phoneText = person.phone ? escapeHTML(person.phone) : "Contact through school";
+        const phoneHref = person.phone ? `tel:${String(person.phone).replace(/[^\d+]/g, "")}` : "#contact";
+        const photo = person.photo ? `<img src="${escapeHTML(person.photo)}" alt="${escapeHTML(name)}" loading="lazy">` : escapeHTML(initials);
+        const credential = person.qualification ? `<p class="staff-credential">${escapeHTML(person.qualification)}</p>` : "";
+        return `<article class="staff-card">
+          <div class="staff-avatar" aria-hidden="true">${photo}</div>
+          <h3>${escapeHTML(name)}</h3>
+          <div class="staff-role">${escapeHTML(person.role || "School staff")}</div>
+          ${credential}
+          <a class="staff-contact" href="${escapeHTML(phoneHref)}">☎ ${phoneText}</a>
+        </article>`;
+      }).join("");
+    }
+
+    function getManagedSchoolData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("gskinyambi_school_data_v1") || "{}");
+        return { ...SCHOOL_DATA, ...(saved && typeof saved === "object" ? saved : {}) };
+      } catch { return SCHOOL_DATA; }
+    }
+
+    function applyManagedSchoolData() {
+      const data = getManagedSchoolData();
+      const number = value => Number(value || 0).toLocaleString();
+      const setText = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
+      setText("displayTotalLearners", number(data.learners));
+      setText("displayNurseryClasses", number(data.nurseryClasses));
+      setText("displayPrimaryClasses", number(data.primaryClasses));
+      setText("displaySecondaryClasses", number(data.secondaryClasses));
+      setText("displayGirls", number(data.girls));
+      setText("displayBoys", number(data.boys));
+      setText("displayNurseryLearners", number(data.nurseryLearners));
+      setText("displayPrimaryLearners", number(data.primaryLearners));
+      setText("displaySecondaryLearners", number(data.secondaryLearners));
+      setText("displayTeachers", number(data.teachers));
+      setText("ribbonLearners", number(data.learners));
+      setText("ribbonTeachers", number(data.teachers));
+      setText("ribbonClasses", number(Number(data.nurseryClasses || 0) + Number(data.primaryClasses || 0) + Number(data.secondaryClasses || 0)));
+      const establishedYear = String(data.established || SCHOOL_DATA.established).match(/\d{4}/)?.[0] || "1942";
+      setText("ribbonEstablished", establishedYear);
+      setText("levelNurseryClasses", `${number(data.nurseryClasses)} classes`);
+      setText("levelNurseryLearners", `${number(data.nurseryLearners)} learners`);
+      setText("levelPrimaryClasses", `${number(data.primaryClasses)} classes`);
+      setText("levelPrimaryLearners", `${number(data.primaryLearners)} learners`);
+      setText("levelSecondaryClasses", `${number(data.secondaryClasses)} classes`);
+      setText("levelSecondaryLearners", `${number(data.secondaryLearners)} learners`);
+
+      const updateResult = (prefix, passedValue, candidatesValue) => {
+        const passed = Math.max(0, Number(passedValue || 0));
+        const candidates = Math.max(0, Number(candidatesValue || 0));
+        const rate = candidates ? Math.min(100, passed / candidates * 100) : 0;
+        setText(`display${prefix}ResultCaption`, `${number(passed)} learners passed out of ${number(candidates)}`);
+        setText(`display${prefix}PassRate`, `${rate.toFixed(1)}%`);
+        setText(`display${prefix}Passed`, `${number(passed)} passed`);
+        setText(`display${prefix}NotPassed`, `${number(Math.max(0, candidates - passed))} did not pass`);
+        const progress = document.getElementById(`display${prefix}Progress`);
+        const track = document.getElementById(`display${prefix}ProgressTrack`);
+        if (progress) progress.style.width = `${rate}%`;
+        if (track) track.setAttribute("aria-valuenow", rate.toFixed(1));
+      };
+      updateResult("Primary", data.primaryPassed, data.primaryCandidates);
+      updateResult("Secondary", data.secondaryPassed, data.secondaryCandidates);
+      const note = document.getElementById("statisticsValidationNote");
+      if (note) {
+        const genderTotal = Number(data.girls || 0) + Number(data.boys || 0);
+        const levelTotal = Number(data.nurseryLearners || 0) + Number(data.primaryLearners || 0) + Number(data.secondaryLearners || 0);
+        if (genderTotal !== Number(data.learners) || levelTotal !== Number(data.learners)) {
+          note.innerHTML = `<strong>Statistics check:</strong> gender totals are ${number(genderTotal)} and education-level totals are ${number(levelTotal)}, while the reported school total is ${number(data.learners)}. Please verify these figures with the school.`;
+        } else {
+          note.innerHTML = `<strong>Statistics:</strong> the gender and educational-level figures add up to the reported total of ${number(data.learners)} learners.`;
+        }
+      }
+    }
+
+    function renderPublicAnnouncements() {
+      const section = document.getElementById("announcements");
+      const grid = document.getElementById("publicAnnouncementList");
+      if (!section || !grid) return;
+      let items = [];
+      try { const saved = JSON.parse(localStorage.getItem("gskinyambi_announcements_v1") || "[]"); items = Array.isArray(saved) ? saved : []; } catch { items = []; }
+      const today = new Date().toISOString().slice(0, 10);
+      items = items.filter(item => item && item.published === true && (!item.publishDate || item.publishDate <= today));
+      items.sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || new Date(b.publishDate || b.createdAt || 0) - new Date(a.publishDate || a.createdAt || 0));
+      grid.innerHTML = items.map(item => `<article class="public-announcement-card"><div class="public-announcement-meta"><span class="public-announcement-tag">${escapeHTML(item.category || "General")}</span><span>${escapeHTML(item.audience || "Everyone")}</span><span>${escapeHTML(formatDate(item.publishDate || item.createdAt))}</span>${item.pinned ? "<strong>· Pinned</strong>" : ""}</div><h3>${escapeHTML(item.title || "School announcement")}</h3><p>${escapeHTML(item.body || "")}</p></article>`).join("");
+      section.hidden = items.length === 0;
+      const navLink = document.getElementById("announcementsNavLink");
+      if (navLink) navLink.hidden = items.length === 0;
+    }
+
+    // ----------------------- Mobile navigation -----------------------
+    const menuToggle = $("#menuToggle");
+    const primaryNav = $("#primaryNav");
+    function closeMenu() {
+      primaryNav.classList.remove("open");
+      document.body.classList.remove("menu-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+      menuToggle.innerHTML = "<span aria-hidden='true'>☰</span>";
+    }
+    menuToggle.addEventListener("click", () => {
+      const isOpen = primaryNav.classList.toggle("open");
+      document.body.classList.toggle("menu-open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      menuToggle.innerHTML = isOpen ? "<span aria-hidden='true'>✕</span>" : "<span aria-hidden='true'>☰</span>";
+    });
+    $$(".nav-links a").forEach(link => link.addEventListener("click", closeMenu));
+    window.addEventListener("resize", () => { if (window.innerWidth > 1100) closeMenu(); });
+
+    // ----------------------- Learner class choices -----------------------
+    const learnerLevel = $("#learnerLevel");
+    const learnerClass = $("#learnerClass");
+    const classOptions = {
+      "Nursery": ["Nursery 1", "Nursery 2", "Nursery 3", "Nursery 4", "Nursery 5", "Nursery 6"].map(value => ({ value, label: value })),
+      "Primary": ["P1", "P2", "P3", "P4", "P5", "P6"].map(value => ({ value, label: value })),
+      "Secondary - O-Level": ["S1", "S2", "S3"].map(value => ({ value: `${value} (O-Level)`, label: `${value} · O-Level` }))
+    };
+    learnerLevel.addEventListener("change", () => {
+      const options = classOptions[learnerLevel.value] || [];
+      learnerClass.innerHTML = options.length
+        ? '<option value="">Select requested class</option>' + options.map(option => `<option value="${escapeHTML(option.value)}">${escapeHTML(option.label)}</option>`).join("")
+        : '<option value="">Choose education level first</option>';
+      learnerClass.disabled = !options.length;
+    });
+
+    // ----------------------- Registration form -----------------------
+    const registrationForm = $("#registrationForm");
+    const formFeedback = $("#formFeedback");
+    const privacyNote = $("#admissionPrivacyNote");
+    if (privacyNote && SHEETS_CONNECTED) {
+      privacyNote.textContent = "Connected to the school's Google Sheets intake. Submitted applications are sent to the private Applications sheet for school review. Keep the spreadsheet private and accessible only to authorized school staff.";
+    }
+
+    async function sendApplicationToGoogleSheet(request) {
+      if (!SHEETS_CONNECTED) return { sent: false, reason: "not-configured" };
+      // text/plain is a simple request. no-cors lets the browser send to Apps Script
+      // without exposing the private sheet or requiring public read access. The
+      // response is opaque, so the browser cannot display server-side row details.
+      await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        redirect: "follow",
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(request)
+      });
+      return { sent: true };
+    }
+
+    registrationForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      formFeedback.className = "form-feedback";
+      formFeedback.textContent = "";
+      if (!registrationForm.reportValidity()) return;
+      if (!$("#consent").checked) {
+        formFeedback.className = "form-feedback error";
+        formFeedback.textContent = "Please confirm the declaration before submitting.";
+        return;
+      }
+
+      const formData = new FormData(registrationForm);
+      // Quietly ignore automated submissions that fill the hidden honeypot.
+      if (String(formData.get("website") || "").trim()) {
+        formFeedback.className = "form-feedback success";
+        formFeedback.textContent = "Thank you. Your request has been received.";
+        registrationForm.reset();
+        return;
+      }
+
+      const submitButton = registrationForm.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting request…";
+
+      const request = {
+        id: `SPK-${Date.now().toString(36).toUpperCase()}`,
+        submittedAt: new Date().toISOString(),
+        status: "Pending",
+        source: "GSSPK public website",
+        parentName: String(formData.get("parentName") || "").trim(),
+        parentRelationship: String(formData.get("parentRelationship") || ""),
+        parentPhone: String(formData.get("parentPhone") || "").trim(),
+        parentEmail: String(formData.get("parentEmail") || "").trim(),
+        parentAddress: String(formData.get("parentAddress") || "").trim(),
+        learnerName: String(formData.get("learnerName") || "").trim(),
+        learnerGender: String(formData.get("learnerGender") || ""),
+        learnerDob: String(formData.get("learnerDob") || ""),
+        learnerLevel: String(formData.get("learnerLevel") || ""),
+        learnerClass: String(formData.get("learnerClass") || ""),
+        previousSchool: String(formData.get("previousSchool") || "").trim(),
+        applicationNote: String(formData.get("applicationNote") || "").trim(),
+        website: ""
+      };
+
+      const localRequests = getRequests();
+      localRequests.unshift(request);
+      const localSaved = saveRequests(localRequests);
+
+      try {
+        if (SHEETS_CONNECTED) {
+          await sendApplicationToGoogleSheet(request);
+          formFeedback.className = "form-feedback success";
+          formFeedback.textContent = `Your application has been sent to the school submission service. Reference: ${request.id}. The school will review your request and contact you. Please keep this reference number.`;
+        } else {
+          formFeedback.className = "form-feedback error";
+          formFeedback.textContent = `DEMONSTRATION MODE: the request is saved only in this browser${localSaved ? "" : " could not be saved"}. It has NOT been sent to the school. The Google Sheets connection is not configured yet. Reference: ${request.id}. Please contact the school to submit an official request.`;
+        }
+        registrationForm.reset();
+        learnerClass.innerHTML = '<option value="">Choose education level first</option>';
+        learnerClass.disabled = true;
+      } catch (error) {
+        console.error("Google Sheets admission submission failed:", error);
+        formFeedback.className = "form-feedback error";
+        formFeedback.textContent = `We could not send your request to the school service. It is only stored in this browser${localSaved ? "" : " and local saving also failed"}. Please contact the school directly and provide reference ${request.id}.`;
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }
+    });
+
+    registrationForm.addEventListener("reset", () => {
+      window.setTimeout(() => {
+        if (formFeedback) { formFeedback.className = "form-feedback"; formFeedback.textContent = ""; }
+        learnerClass.innerHTML = '<option value="">Choose education level first</option>';
+        learnerClass.disabled = true;
+      }, 0);
+    });
+
+    // ---------------- Scroll-linked 3D GSSPK campus journey ----------------
+    // Builds a lightweight procedural campus scene. The camera travels around
+    // the school as visitors scroll, inspired by interactive guided school tours.
+    // The scene is illustrative (not a surveyed or photogrammetric model of campus).
+    (function initJourneyWorld() {
+      const canvas = $("#journeyScene");
+      if (!canvas) return;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const mobile = window.matchMedia("(max-width: 700px)").matches;
+
+      function drawFallback() {
+        const ctx = canvas.getContext("2d", { alpha: true });
+        if (!ctx) return;
+        let w = 0, h = 0, dpr = 1, scrollProgress = 0, frameId = 0, t = 0;
+        function resize() {
+          w = window.innerWidth; h = window.innerHeight;
+          dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.4);
+          canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0); draw();
+        }
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          const horizon = h * (.55 - scrollProgress * .12);
+          const sky = ctx.createLinearGradient(0, 0, 0, h);
+          sky.addColorStop(0, "rgba(164,204,218,.16)"); sky.addColorStop(1, "rgba(226,210,165,.10)");
+          ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+          for (let layer = 0; layer < 4; layer++) {
+            ctx.beginPath();
+            for (let x = 0; x <= w + 12; x += 12) {
+              const y = horizon + layer * h * .105 + Math.sin(x * .009 + t * .25 + layer * 1.7) * (18 + layer * 9);
+              if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
+            ctx.fillStyle = ["rgba(111,155,133,.15)","rgba(77,132,103,.17)","rgba(47,105,79,.18)","rgba(35,81,66,.12)"][layer]; ctx.fill();
+          }
+          // Perspective road leads toward the school horizon.
+          const center = w * (.5 + .09 * Math.sin(scrollProgress * 4.7));
+          ctx.beginPath(); ctx.moveTo(center - 4, horizon + 8); ctx.lineTo(center + 4, horizon + 8); ctx.lineTo(w * .78, h); ctx.lineTo(w * .22, h); ctx.closePath();
+          ctx.fillStyle = "rgba(113,112,98,.25)"; ctx.fill();
+          // Low-poly silhouette of a school building.
+          const bw = Math.min(w * .35, 300) * (0.55 + scrollProgress * .3), bh = Math.min(h * .17, 120) * (0.7 + scrollProgress * .35);
+          const bx = center - bw / 2, by = horizon - bh * .78;
+          ctx.fillStyle = "rgba(21,57,79,.26)"; ctx.fillRect(bx, by, bw, bh);
+          ctx.fillStyle = "rgba(202,160,90,.28)"; ctx.beginPath(); ctx.moveTo(bx - 12, by); ctx.lineTo(center, by - bh * .32); ctx.lineTo(bx + bw + 12, by); ctx.closePath(); ctx.fill();
+          for (let i = 0; i < 6; i++) { ctx.fillStyle = "rgba(229,241,238,.25)"; ctx.fillRect(bx + 15 + i * (bw - 35) / 6, by + 18, Math.max(5, bw / 18), bh * .32); }
+          if (!reducedMotion) t += .01;
+        }
+        function loop() { draw(); if (!reducedMotion) frameId = requestAnimationFrame(loop); }
+        window.addEventListener("scroll", () => { scrollProgress = window.scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight); if (reducedMotion) draw(); }, { passive: true });
+        window.addEventListener("resize", resize, { passive: true });
+        resize(); if (!reducedMotion) frameId = requestAnimationFrame(loop);
+      }
+
+      function buildThreeCampus() {
+        if (!window.THREE) { drawFallback(); return; }
+        const THREE = window.THREE;
+        let renderer, scene, camera;
+        try {
+          renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !mobile, powerPreference: "low-power" });
+        } catch (error) { console.warn("3D campus unavailable; using lightweight fallback.", error); drawFallback(); return; }
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.35));
+        renderer.setSize(window.innerWidth, window.innerHeight, false);
+        renderer.setClearColor(0x000000, 0);
+        if ("outputColorSpace" in renderer) renderer.outputColorSpace = THREE.SRGBColorSpace;
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, .1, 360);
+
+        scene.add(new THREE.HemisphereLight(0xe7f6ff, 0x4d6747, 2.0));
+        const sun = new THREE.DirectionalLight(0xffedc8, 2.1); sun.position.set(-25, 38, 26); scene.add(sun);
+        const warmFill = new THREE.DirectionalLight(0x9bc9e2, .65); warmFill.position.set(25, 16, -28); scene.add(warmFill);
+
+        const mat = (color, roughness = .88) => new THREE.MeshStandardMaterial({ color, roughness, metalness: .02 });
+        const groundGeo = new THREE.PlaneGeometry(190, 190, mobile ? 30 : 54, mobile ? 30 : 54);
+        groundGeo.rotateX(-Math.PI / 2);
+        const pos = groundGeo.attributes.position;
+        const colors = [];
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i), z = pos.getZ(i);
+          const hill = Math.sin(x * .055) * 1.25 + Math.cos(z * .045) * 1.05 + Math.sin((x + z) * .027) * .8;
+          pos.setY(i, hill - 1.1);
+          const base = new THREE.Color(hill > 1.1 ? 0x79976a : hill < -1.2 ? 0x416f53 : 0x5d895d);
+          colors.push(base.r, base.g, base.b);
+        }
+        groundGeo.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+        groundGeo.computeVertexNormals();
+        scene.add(new THREE.Mesh(groundGeo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 })));
+
+        // Distant green hills frame the valley without hiding the campus.
+        for (let i = 0; i < 9; i++) {
+          const hill = new THREE.Mesh(new THREE.SphereGeometry(1, 18, 12), mat(i % 2 ? 0x527d61 : 0x648c68));
+          hill.scale.set(18 + (i % 3) * 7, 5 + (i % 2) * 2, 9 + (i % 4) * 3);
+          hill.position.set(-74 + i * 18, -1 + (i % 2) * .3, -48 - (i % 3) * 13); scene.add(hill);
+        }
+
+        // Main academic block and two supporting wings.
+        function building(x, z, width, height, depth, label = false) {
+          const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), mat(0xe8e6dc));
+          body.position.set(x, height / 2 - .9, z); scene.add(body);
+          const base = new THREE.Mesh(new THREE.BoxGeometry(width + .45, .55, depth + .45), mat(0x87918d));
+          base.position.set(x, -.62, z); scene.add(base);
+          const roof = new THREE.Mesh(new THREE.BoxGeometry(width + 1.4, .42, depth + 1.2), mat(0x8e5541));
+          roof.position.set(x, height - .55, z); scene.add(roof);
+          const frontZ = z + depth / 2 + .035;
+          const columns = Math.max(3, Math.floor(width / 2.8));
+          for (let row = 0; row < 2; row++) for (let col = 0; col < columns; col++) {
+            const win = new THREE.Mesh(new THREE.BoxGeometry(Math.min(1.2, width / (columns + 1)), 1.0, .09), mat(0x32637b, .34));
+            win.position.set(x - width / 2 + (col + 1) * width / (columns + 1), row * 2.35 + 1.5, frontZ); scene.add(win);
+            const sill = new THREE.Mesh(new THREE.BoxGeometry(Math.min(1.35, width / (columns + 1) + .12), .09, .14), mat(0xf5eee0));
+            sill.position.set(win.position.x, win.position.y - .55, frontZ + .015); scene.add(sill);
+          }
+          const entrance = new THREE.Mesh(new THREE.BoxGeometry(2.2, 2.6, .15), mat(0x244a61, .35));
+          entrance.position.set(x, .4, frontZ + .08); scene.add(entrance);
+          const canopy = new THREE.Mesh(new THREE.BoxGeometry(4.4, .22, 1.8), mat(0xe5b653));
+          canopy.position.set(x, 2, frontZ + .65); scene.add(canopy);
+          if (label) {
+            const signCanvas = document.createElement("canvas"); signCanvas.width = 1024; signCanvas.height = 220;
+            const c = signCanvas.getContext("2d");
+            c.fillStyle = "#102d4f"; c.fillRect(0,0,1024,220); c.strokeStyle = "#e9b84b"; c.lineWidth = 12; c.strokeRect(12,12,1000,196);
+            c.fillStyle = "#fff"; c.textAlign = "center"; c.font = "bold 76px Arial"; c.fillText("GSSPK",512,103);
+            c.fillStyle = "#f3d78f"; c.font = "bold 34px Arial"; c.fillText("SAINT PIERRE KINYAMBI · 1942",512,160);
+            const texture = new THREE.CanvasTexture(signCanvas);
+            const sign = new THREE.Mesh(new THREE.PlaneGeometry(8.2, 1.75), new THREE.MeshBasicMaterial({ map: texture }));
+            sign.position.set(x, height - 1.1, frontZ + .16); scene.add(sign);
+          }
+        }
+        building(-2, -19, 24, 8.2, 10, true);
+        building(-22, -20, 13, 6.1, 9, false);
+        building(20, -20, 13, 6.1, 9, false);
+        // Courtyard and walking paths.
+        const court = new THREE.Mesh(new THREE.BoxGeometry(48, .12, 20), mat(0x9eaa91)); court.position.set(0, -.35, -3); scene.add(court);
+        const walkway = new THREE.Mesh(new THREE.BoxGeometry(8, .08, 34), mat(0xc3bda8)); walkway.position.set(0, -.24, 15); scene.add(walkway);
+        const sports = new THREE.Mesh(new THREE.BoxGeometry(23, .12, 13), mat(0x467c5a)); sports.position.set(28, -.32, -1); scene.add(sports);
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xe6eee0, transparent: true, opacity: .65 });
+        const fieldPoints = [new THREE.Vector3(16.8,-.22,-7.4),new THREE.Vector3(39.2,-.22,-7.4),new THREE.Vector3(39.2,-.22,5.4),new THREE.Vector3(16.8,-.22,5.4),new THREE.Vector3(16.8,-.22,-7.4)];
+        const fieldLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(fieldPoints), lineMaterial); scene.add(fieldLine);
+        const centerLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(28,-.21,-7.4),new THREE.Vector3(28,-.21,5.4)]), lineMaterial); scene.add(centerLine);
+
+        // Winding campus approach road, built from 3D segments.
+        const roadMat = mat(0x4c5557);
+        const roadPoints = [];
+        for (let z = 58; z >= -4; z -= 3) roadPoints.push(new THREE.Vector3(Math.sin(z * .045) * 7, -.05, z));
+        for (let i = 0; i < roadPoints.length - 1; i++) {
+          const a = roadPoints[i], b = roadPoints[i + 1], mid = a.clone().add(b).multiplyScalar(.5);
+          const segment = new THREE.Mesh(new THREE.BoxGeometry(6.5, .12, a.distanceTo(b) + .7), roadMat);
+          segment.position.set(mid.x, mid.y, mid.z); segment.rotation.y = Math.atan2(b.x - a.x, b.z - a.z); scene.add(segment);
+        }
+        // Pale centre markers.
+        for (let z = 51; z > -1; z -= 6) {
+          const marker = new THREE.Mesh(new THREE.BoxGeometry(.16, .035, 2.1), mat(0xf2d88b));
+          marker.position.set(Math.sin(z * .045) * 7, .025, z); marker.rotation.y = Math.atan2(Math.cos(z * .045) * .135, 1); scene.add(marker);
+        }
+
+        // Trees: layered cones and trunks, placed along the campus edges.
+        function tree(x, z, scale = 1) {
+          const trunk = new THREE.Mesh(new THREE.CylinderGeometry(.14*scale,.22*scale,1.7*scale,7), mat(0x79543b));
+          trunk.position.set(x, -.05 + .85*scale, z); scene.add(trunk);
+          const foliage = new THREE.Mesh(new THREE.ConeGeometry(1.05*scale,2.8*scale,7), mat(0x2f704d));
+          foliage.position.set(x, 1.45*scale, z); scene.add(foliage);
+          const crown = new THREE.Mesh(new THREE.SphereGeometry(.63*scale,8,7), mat(0x4b8b5b));
+          crown.position.set(x, 2.25*scale, z); scene.add(crown);
+        }
+        const treeRows = mobile ? 7 : 13;
+        for (let i = 0; i < treeRows; i++) {
+          const z = 45 - i * 7;
+          tree(-18 - Math.sin(i * .8) * 3, z, .75 + (i%3)*.13);
+          tree(18 + Math.cos(i * .7) * 3, z - 2, .78 + (i%2)*.15);
+        }
+        for (let i = 0; i < 8; i++) tree(-38 + i*10, -39 - (i%3)*5, .8 + (i%2)*.2);
+
+        // A flagpole and the Rwandan flag at the assembly area.
+        const pole = new THREE.Mesh(new THREE.CylinderGeometry(.055,.075,8,8), mat(0xd7dbe0,.4)); pole.position.set(-14,3.2,-4); scene.add(pole);
+        const flagCanvas = document.createElement("canvas"); flagCanvas.width=300; flagCanvas.height=180;
+        const fc = flagCanvas.getContext("2d"); fc.fillStyle="#00a1de";fc.fillRect(0,0,300,90);fc.fillStyle="#fad201";fc.fillRect(0,90,300,45);fc.fillStyle="#20603d";fc.fillRect(0,135,300,45);fc.fillStyle="#f8df50";fc.beginPath();fc.arc(245,45,22,0,Math.PI*2);fc.fill();
+        const flag = new THREE.Mesh(new THREE.PlaneGeometry(2.5,1.5),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(flagCanvas),side:THREE.DoubleSide})); flag.position.set(-12.8,6,-4);scene.add(flag);
+
+        // Floating soft clouds add depth to the upper background.
+        const clouds = [];
+        for (let i = 0; i < (mobile ? 5 : 9); i++) {
+          const group = new THREE.Group();
+          for (let j = 0; j < 4; j++) { const puff = new THREE.Mesh(new THREE.SphereGeometry(1.35 + (j%2)*.25,10,8), new THREE.MeshBasicMaterial({color:0xf4f8f7,transparent:true,opacity:.42})); puff.position.set(j*1.45, Math.sin(j*1.6)*.45,0); group.add(puff); }
+          group.position.set(-55 + (i*17)%110, 22 + (i%3)*5, -44 - (i%4)*16); scene.add(group); clouds.push(group);
+        }
+
+        const route = [
+          { p: new THREE.Vector3(28,22,58), t: new THREE.Vector3(0,3,-15) },
+          { p: new THREE.Vector3(17,13,31), t: new THREE.Vector3(0,4,-18) },
+          { p: new THREE.Vector3(1,9,13), t: new THREE.Vector3(-1,4,-17) },
+          { p: new THREE.Vector3(-13,12,-2), t: new THREE.Vector3(0,4,-19) },
+          { p: new THREE.Vector3(-27,20,-36), t: new THREE.Vector3(-1,4,-12) }
+        ];
+        let progressTarget = 0, progressEase = 0, clock = 0, raf = 0;
+        const pointer = { x: 0, y: 0 };
+        function scrollProgress() { return window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight); }
+        function setCamera() {
+          progressTarget = scrollProgress();
+          progressEase += (progressTarget - progressEase) * (reducedMotion ? 1 : .065);
+          const scaled = progressEase * (route.length - 1);
+          const index = Math.min(route.length - 2, Math.floor(scaled));
+          const local = Math.max(0, Math.min(1, scaled - index));
+          const eased = local * local * (3 - 2 * local);
+          const position = route[index].p.clone().lerp(route[index + 1].p, eased);
+          const target = route[index].t.clone().lerp(route[index + 1].t, eased);
+          position.x += pointer.x * (mobile ? 0 : 1.25);
+          position.y += pointer.y * (mobile ? 0 : .6);
+          camera.position.copy(position); camera.lookAt(target);
+        }
+        function render() {
+          if (!reducedMotion) { clock += .008; clouds.forEach((cloud,i)=>{cloud.position.x += Math.sin(clock + i) * .0025;}); }
+          setCamera(); renderer.render(scene,camera);
+          if (!reducedMotion) raf = requestAnimationFrame(render);
+        }
+        window.addEventListener("scroll", () => { progressTarget = scrollProgress(); if (reducedMotion) render(); }, { passive:true });
+        window.addEventListener("resize", () => {
+          const w=window.innerWidth,h=window.innerHeight; camera.aspect=w/h;camera.updateProjectionMatrix();
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,mobile?1:1.35));renderer.setSize(w,h,false);
+          if (reducedMotion) render();
+        }, { passive:true });
+        if (!mobile && !reducedMotion) window.addEventListener("pointermove", event => {
+          pointer.x = (event.clientX / Math.max(1,innerWidth) - .5) * 2;
+          pointer.y = (event.clientY / Math.max(1,innerHeight) - .5) * 2;
+        }, { passive:true });
+        render();
+        document.addEventListener("visibilitychange", () => { if (document.hidden && raf) cancelAnimationFrame(raf); else if (!reducedMotion) render(); });
+      }
+
+      if (window.THREE) { buildThreeCampus(); return; }
+      const loader = document.createElement("script");
+      loader.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js";
+      loader.async = true;
+      loader.onload = buildThreeCampus;
+      loader.onerror = () => { console.warn("Three.js failed to load; using the built-in campus background."); drawFallback(); };
+      document.head.appendChild(loader);
+    })();
+
+    // ---------------------- Animated 2.5D canvas ----------------------
+    // A lightweight perspective terrain made with Canvas rather than a
+    // heavy 3D library. It moves gently and responds to cursor position.
+    (function initHeroScene() {
+      const canvas = $("#heroScene");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let width = 0, height = 0, dpr = 1, animationId = 0, time = 0;
+      let pointerX = 0, pointerY = 0;
+      const columns = 48, rows = 24;
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        width = rect.width; height = rect.height;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.7);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function project(x, z, y) {
+        const perspective = 330 / (z + 5.8);
+        const horizon = height * .47;
+        const px = width * .67 + x * perspective + pointerX * 10;
+        const py = horizon + (z - 5) * 27 * perspective - y * perspective * 1.05 + pointerY * 8;
+        return [px, py];
+      }
+      function heightAt(x, z, t) {
+        return .36 * Math.sin(x * .78 + t * .55) + .24 * Math.cos(z * .72 - t * .36) + .18 * Math.sin((x + z) * .42 + t * .28);
+      }
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        const t = time;
+        // Distant contour arcs / atmosphere
+        ctx.save();
+        ctx.strokeStyle = "rgba(218,235,238,.12)";
+        ctx.lineWidth = 1;
+        for (let r = 0; r < 4; r++) {
+          ctx.beginPath();
+          ctx.ellipse(width * .72, height * .43, 130 + r * 60, 45 + r * 25, -.08, Math.PI * 1.02, Math.PI * 1.98);
+          ctx.stroke();
+        }
+        ctx.restore();
+        // Perspective hill mesh
+        for (let row = rows; row >= 0; row--) {
+          const z = 1.8 + row * .34;
+          ctx.beginPath();
+          for (let col = 0; col <= columns; col++) {
+            const x = (col / columns - .5) * 17;
+            const y = heightAt(x, z, t);
+            const [px, py] = project(x, z, y);
+            if (col === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.strokeStyle = `rgba(166,215,207,${.035 + (row / rows) * .12})`;
+          ctx.lineWidth = .8;
+          ctx.stroke();
+        }
+        for (let col = 0; col <= columns; col += 2) {
+          ctx.beginPath();
+          for (let row = 0; row <= rows; row++) {
+            const z = 1.8 + row * .34;
+            const x = (col / columns - .5) * 17;
+            const y = heightAt(x, z, t);
+            const [px, py] = project(x, z, y);
+            if (row === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          }
+          ctx.strokeStyle = "rgba(226,190,112,.09)";
+          ctx.lineWidth = .65;
+          ctx.stroke();
+        }
+        // Floating lights in pseudo-depth
+        for (let i = 0; i < 36; i++) {
+          const x = Math.sin(i * 12.989 + t * .12) * 7.3;
+          const z = 2.3 + ((i * 1.73) % 7.4);
+          const y = heightAt(x, z, t) + .5 + Math.sin(t * .5 + i) * .15;
+          const [px, py] = project(x, z, y);
+          const radius = Math.max(.6, 2.1 - z * .13);
+          ctx.beginPath(); ctx.arc(px, py, radius, 0, Math.PI * 2);
+          ctx.fillStyle = i % 4 === 0 ? "rgba(243,205,121,.72)" : "rgba(205,235,231,.5)";
+          ctx.fill();
+        }
+        if (!reduceMotion) time += .012;
+        if (!reduceMotion) animationId = requestAnimationFrame(draw);
+      }
+      resize();
+      draw();
+      window.addEventListener("resize", () => { resize(); if (reduceMotion) draw(); });
+      window.addEventListener("pointermove", event => {
+        pointerX = (event.clientX / Math.max(window.innerWidth, 1) - .5) * 2;
+        pointerY = (event.clientY / Math.max(window.innerHeight, 1) - .5) * 2;
+      }, { passive: true });
+      if (reduceMotion) cancelAnimationFrame(animationId);
+    })();
+
+    // ---------------------- GSSPK school assistant ----------------------
+    const assistantPanel = $("#assistantPanel");
+    const assistantToggle = $("#assistantToggle");
+    const assistantClose = $("#assistantClose");
+    const assistantMessages = $("#assistantMessages");
+    const assistantForm = $("#assistantForm");
+    const assistantQuestion = $("#assistantQuestion");
+
+    const SCHOOL_ASSISTANT_FACTS = {
+      name: "Groupe Scolaire Saint Pierre Kinyambi",
+      address: "Kigarama Village, Sheli Cell, Rugalika Sector, Kamonyi District, Southern Province, Rwanda",
+      phone: "+250 788 803 071",
+      whatsapp: "https://wa.me/250788803071",
+      email: "gskinyambi@gmial.com",
+      established: "1 January 1942",
+      secondaryOpened: "25 September 2023",
+      levels: "Nursery, Primary and Secondary O-Level only",
+      classes: "Nursery 1–6, Primary 1–6 and Secondary Senior 1–3 (O-Level)",
+      totalLearners: 1738,
+      teachers: 40
+    };
+
+    function schoolFAQAnswer(question) {
+      const q = question.toLowerCase();
+      if (/hello|hi|muraho|amakuru|good morning|good afternoon/.test(q)) return "Muraho! Welcome to Groupe Scolaire Saint Pierre Kinyambi. I can help with admissions, classes, school history, contacts and general school information. What would you like to know?";
+      if (/where|location|address|directions|map|located/.test(q)) return `The school is located at ${SCHOOL_ASSISTANT_FACTS.address}. You can open the location using the map link in the Contact section, or call ${SCHOOL_ASSISTANT_FACTS.phone} for directions.`;
+      if (/phone|call|contact|whatsapp|telephone/.test(q)) return `You can contact the school by phone or WhatsApp at ${SCHOOL_ASSISTANT_FACTS.phone}, or by email at ${SCHOOL_ASSISTANT_FACTS.email}.`;
+      if (/email|mail/.test(q)) return `The email address supplied for the school is ${SCHOOL_ASSISTANT_FACTS.email}. Please verify the spelling with the school before sending sensitive documents.`;
+      if (/register|registration|admission|apply|enrol|enroll|join/.test(q)) return "To request admission, go to the Admissions section on this website, complete the parent or guardian and learner information, select the education level and class, accept the consent statement and submit. Submission is a request for review, not a confirmed admission. The online Google Sheets connection must be configured before real applications can reach the school.";
+      if (/nursery|primary|secondary|o.level|level|class|classes|grade|senior/.test(q)) return `The school offers ${SCHOOL_ASSISTANT_FACTS.levels}. The classes shown on the registration form are ${SCHOOL_ASSISTANT_FACTS.classes}. The school has 6 nursery classes, 23 primary classes and 7 secondary classes.`;
+      if (/history|started|established|founded|1942|secondary.*2023/.test(q)) return `The school began on ${SCHOOL_ASSISTANT_FACTS.established}. Secondary education was introduced on ${SCHOOL_ASSISTANT_FACTS.secondaryOpened}. The website's history section provides the school's timeline.`;
+      if (/teacher|staff|headmaster|singa|teguru/.test(q)) return "The staff details currently published include Singa Silas (Headmaster) and TEGURUGORI Rachel (Nursery Teacher). Please visit the Our Staff section for the available contact details. More staff members can be added by the school administration.";
+      if (/results|pass rate|passed|exam|examination|academic performance/.test(q)) return "The previous-year results supplied for the website are: Primary 67 learners passed out of 69 (about 97.1%); Secondary 29 passed out of 50 (58%). The exact academic year should be confirmed by the school administration.";
+      if (/how many|statistics|number of|learners|students|boys|girls|teachers/.test(q)) return `The school information supplied for the website lists ${SCHOOL_ASSISTANT_FACTS.totalLearners.toLocaleString()} learners and ${SCHOOL_ASSISTANT_FACTS.teachers} teachers. The figures for girls and boys currently need reconciliation with the stated total, so please confirm exact statistics with the school office.`;
+      if (/fees|school fee|tuition|payment|price|cost/.test(q)) return "The website does not currently publish confirmed school fees. Please contact the school directly at +250 788 803 071 or gskinyambi@gmial.com for current fee information.";
+      if (/motto|mission|vision/.test(q)) return "Please refer to the school's About section. Any motto, mission or vision wording shown as a draft must be confirmed by the school administration before being treated as official.";
+      if (/announcement|news|event|meeting/.test(q)) return "Please check the Announcements section on the homepage when the school has published an update. The upcoming Parents' Group portal will be linked from the Parents' Group menu when group.html is ready.";
+      if (/group|parent meeting|online meeting/.test(q)) return "The Parents' Group menu is being prepared. It will link to group.html, where parents will be able to meet and communicate online after that page is created and connected.";
+      return "Thank you for your question. I can currently answer questions about the school's location, contacts, history, education levels, classes, staff, statistics and admission process. For fees, official decisions or information not published here, please contact the school at +250 788 803 071.";
+    }
+
+    function appendAssistantMessage(message, who = "bot") {
+      const bubble = document.createElement("div");
+      bubble.className = `assistant-message ${who === "user" ? "user-message" : "bot-message"}`;
+      bubble.textContent = message;
+      assistantMessages.appendChild(bubble);
+      assistantMessages.scrollTop = assistantMessages.scrollHeight;
+      return bubble;
+    }
+
+    function setAssistantOpen(open) {
+      assistantPanel.hidden = !open;
+      assistantToggle.setAttribute("aria-expanded", String(open));
+      assistantToggle.innerHTML = open
+        ? '<span class="assistant-launch-icon" aria-hidden="true">×</span><span>Close assistant</span>'
+        : '<span class="assistant-launch-icon" aria-hidden="true">✦</span><span>Ask GSSPK</span>';
+      if (open) window.setTimeout(() => assistantQuestion.focus(), 80);
+    }
+
+    async function getSchoolAssistantReply(question) {
+      if (SCHOOL_AI_ENDPOINT && /^https:\/\//i.test(SCHOOL_AI_ENDPOINT)) {
+        try {
+          const response = await fetch(SCHOOL_AI_ENDPOINT, {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question, schoolContext: SCHOOL_ASSISTANT_FACTS })
+          });
+          if (!response.ok) throw new Error(`AI service returned ${response.status}`);
+          const data = await response.json();
+          if (data && typeof data.answer === "string" && data.answer.trim()) return data.answer.trim();
+        } catch (error) { console.warn("School AI endpoint unavailable; using school FAQ fallback.", error); }
+      }
+      return schoolFAQAnswer(question);
+    }
+
+    assistantToggle.addEventListener("click", () => setAssistantOpen(assistantPanel.hidden));
+    assistantClose.addEventListener("click", () => setAssistantOpen(false));
+    assistantForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      const question = assistantQuestion.value.trim();
+      if (!question) return;
+      appendAssistantMessage(question, "user");
+      assistantQuestion.value = "";
+      const typing = appendAssistantMessage("Checking the school information…", "bot");
+      const sendButton = assistantForm.querySelector("button[type='submit']");
+      sendButton.disabled = true;
+      try { typing.textContent = await getSchoolAssistantReply(question); }
+      finally { sendButton.disabled = false; assistantMessages.scrollTop = assistantMessages.scrollHeight; }
+    });
+    $$(".assistant-quick button").forEach(button => button.addEventListener("click", () => {
+      assistantQuestion.value = button.dataset.question || "";
+      assistantForm.requestSubmit();
+    }));
+
+    // ---------------------- Custom cursor + reveal ----------------------
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (canHover && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.body.classList.add("cursor-ready");
+      const dot = $(".cursor-dot"), ring = $(".cursor-ring");
+      let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+      window.addEventListener("pointermove", event => { mouseX = event.clientX; mouseY = event.clientY; dot.style.left = `${mouseX}px`; dot.style.top = `${mouseY}px`; }, { passive: true });
+      function moveRing() {
+        ringX += (mouseX - ringX) * .18;
+        ringY += (mouseY - ringY) * .18;
+        ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`;
+        requestAnimationFrame(moveRing);
+      }
+      moveRing();
+      $$('a, button, input, select, textarea, .level-card, .staff-card').forEach(element => {
+        element.addEventListener("pointerenter", () => document.body.classList.add("cursor-hover"));
+        element.addEventListener("pointerleave", () => document.body.classList.remove("cursor-hover"));
+      });
+    }
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    $$(".reveal").forEach(element => revealObserver.observe(element));
+
+    // Initial data from the companion ademin.html administration page.
+    $("#currentYear").textContent = new Date().getFullYear();
+    renderStaff();
+    applyManagedSchoolData();
+    renderPublicAnnouncements();
+    if (!SHEETS_CONNECTED) console.info("GSSPK admissions: Google Sheets endpoint not configured. See SHEETS_SETUP.txt.");
+    window.addEventListener("storage", event => {
+      if (["gskinyambi_school_data_v1", "gskinyambi_staff_v1", "gskinyambi_announcements_v1"].includes(event.key)) {
+        renderStaff();
+        applyManagedSchoolData();
+        renderPublicAnnouncements();
+      }
+    });
+  </script>
+</body>
+</html>
